@@ -132,34 +132,39 @@ class FooterWidget extends StatelessWidget {
   }
 
   Widget _buildFooterSection(String title, List<_FooterLink> links) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+    return Builder(
+      builder: (context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        const SizedBox(height: 12),
-        ...links.map((link) => Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: GestureDetector(
-                onTap: () {
-                  // Navigation will be handled later
-                },
-                child: Text(
-                  link.title,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14,
+          const SizedBox(height: 12),
+          ...links.map((link) => Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: GestureDetector(
+                  onTap: () {
+                    // Only navigate for About Us link
+                    if (link.route == '/about') {
+                      Navigator.pushNamed(context, '/about');
+                    }
+                  },
+                  child: Text(
+                    link.title,
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                    ),
                   ),
                 ),
-              ),
-            )),
-      ],
+              )),
+        ],
+      ),
     );
   }
 

@@ -147,4 +147,29 @@ void main() {
 
     // No errors should occur
   });
+
+  testWidgets('About Us link navigates to about page',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: const Scaffold(
+          body: SingleChildScrollView(
+            child: FooterWidget(),
+          ),
+        ),
+        routes: {
+          '/about': (context) => const Scaffold(
+                body: Center(child: Text('About Page')),
+              ),
+        },
+      ),
+    );
+
+    // Tap About Us link
+    await tester.tap(find.text('About Us'));
+    await tester.pumpAndSettle();
+
+    // Verify navigation occurred
+    expect(find.text('About Page'), findsOneWidget);
+  });
 }
