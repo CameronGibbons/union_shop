@@ -1,8 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/models/collection.dart';
+import 'package:union_shop/services/collections_service.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
 
-class CollectionsPage extends StatelessWidget {
+class CollectionsPage extends StatefulWidget {
   const CollectionsPage({super.key});
+
+  @override
+  State<CollectionsPage> createState() => _CollectionsPageState();
+}
+
+class _CollectionsPageState extends State<CollectionsPage> {
+  final CollectionsService _collectionsService = CollectionsService();
+  List<Collection> _collections = [];
+  bool _isLoading = true;
+  String _errorMessage = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCollections();
+  }
+
+  Future<void> _loadCollections() async {
+    try {
+      setState(() {
+        _isLoading = true;
+        _errorMessage = '';
+      });
+
+      final collections = await _collectionsService.getAllCollections();
+
+      setState(() {
+        _collections = collections;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Failed to load collections: $e';
+        _isLoading = false;
+      });
+    }
+  }
 
   void navigateToHome(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
@@ -117,45 +156,63 @@ class CollectionsPage extends StatelessWidget {
   }
 
   Widget _buildCollectionsList() {
-    final collections = [
-      CollectionItem(
-          'Autumn Favourites', 'assets/images/category_clothing.png'),
-      CollectionItem('Black Friday', 'assets/images/category_sale.png'),
-      CollectionItem('Clothing', 'assets/images/signature_hoodie.png'),
-      CollectionItem(
-          'Clothing - Original', 'assets/images/signature_hoodie.png'),
-      CollectionItem(
-          'Elections Discounts', 'assets/images/essential_hoodie.png'),
-      CollectionItem('Essential Range', 'assets/images/essential_hoodie.png'),
-      CollectionItem('Graduation', 'assets/images/category_graduation.png'),
-      CollectionItem('Limited Edition Essential Zip Hoodies',
-          'assets/images/essential_hoodie.png'),
-      CollectionItem('Merchandise', 'assets/images/category_merchandise.png'),
-      CollectionItem('Nike Final Chance', 'assets/images/category_sale.png'),
-      CollectionItem(
-          'Personalisation', 'assets/images/personalization_banner.png'),
-      CollectionItem('Popular', 'assets/images/signature_tshirt.png'),
-      CollectionItem('Portsmouth City Collection',
-          'assets/images/portsmouth_postcard.png'),
-      CollectionItem('Pride Collection', 'assets/images/signature_tshirt.png'),
-      CollectionItem('SALE', 'assets/images/category_sale.png'),
-      CollectionItem(
-          'Signature & Essential Range', 'assets/images/signature_hoodie.png'),
-      CollectionItem('Signature Range', 'assets/images/signature_hoodie.png'),
-      CollectionItem('Sports Clubs', 'assets/images/signature_hoodie.png'),
-      CollectionItem('Spring Favourites', 'assets/images/essential_tshirt.png'),
-      CollectionItem(
-          'Student Essentials', 'assets/images/essential_tshirt.png'),
-      CollectionItem('Student Groups', 'assets/images/signature_hoodie.png'),
-      CollectionItem('Summer Essentials', 'assets/images/essential_tshirt.png'),
-      CollectionItem('Summer Favourites', 'assets/images/essential_tshirt.png'),
-      CollectionItem(
-          'University Clothing', 'assets/images/signature_hoodie.png'),
-      CollectionItem(
-          'University Merchandise', 'assets/images/category_merchandise.png'),
-      CollectionItem('UPSU Bears', 'assets/images/logo.png'),
-      CollectionItem('Winter Favourites', 'assets/images/essential_hoodie.png'),
-    ];
+    if (_isLoading) {
+      return Container(
+        color: Colors.white,
+        padding: const EdgeInsets.all(64),
+        child: const Center(
+          child: CircularProgressIndicator(
+            color: Color(0xFF4d2963),
+          ),
+        ),
+      );
+    }
+
+    if (_errorMessage.isNotEmpty) {
+      return Container(
+        color: Colors.white,
+        padding: const EdgeInsets.all(32),
+        child: Center(
+          child: Column(
+            children: [
+              const Icon(
+                Icons.error_outline,
+                size: 48,
+                color: Colors.red,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                _errorMessage,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.red),
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: _loadCollections,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4d2963),
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text('Retry'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (_collections.isEmpty) {
+      return Container(
+        color: Colors.white,
+        padding: const EdgeInsets.all(32),
+        child: const Center(
+          child: Text(
+            'No collections available',
+            style: TextStyle(fontSize: 16, color: Colors.grey),
+          ),
+        ),
+      );
+    }
 
     return Container(
       color: Colors.white,
@@ -169,15 +226,15 @@ class CollectionsPage extends StatelessWidget {
           mainAxisSpacing: 12,
           childAspectRatio: 0.85,
         ),
-        itemCount: collections.length,
+        itemCount: _collections.length,
         itemBuilder: (context, index) {
-          return _buildCollectionCard(collections[index]);
+          return _buildCollectionCard(_collections[index]);
         },
       ),
     );
   }
 
-  Widget _buildCollectionCard(CollectionItem collection) {
+  Widget _buildCollectionCard(Collection collection) {
     return GestureDetector(
       onTap: placeholderCallbackForButtons,
       child: Container(
@@ -235,11 +292,4 @@ class CollectionsPage extends StatelessWidget {
       ),
     );
   }
-}
-
-class CollectionItem {
-  final String name;
-  final String imageUrl;
-
-  CollectionItem(this.name, this.imageUrl);
 }
