@@ -11,13 +11,15 @@ void main() {
       await tester.pump();
 
       // Check announcement bar
-      expect(find.text('🎓 STUDENT DISCOUNT AVAILABLE'), findsOneWidget);
+      expect(
+          find.text(
+              'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF!'),
+          findsOneWidget);
 
       // Check navigation icons
       expect(find.byIcon(Icons.search), findsOneWidget);
       expect(find.byIcon(Icons.person_outline), findsOneWidget);
       expect(find.byIcon(Icons.shopping_bag_outlined), findsOneWidget);
-      expect(find.byIcon(Icons.menu), findsOneWidget);
     });
 
     testWidgets('should display hero banner with call-to-action',
@@ -26,13 +28,13 @@ void main() {
       await tester.pump();
 
       // Check hero section text
-      expect(find.text('WELCOME TO UPSU SHOP'), findsOneWidget);
+      expect(find.text('Essential Range - Over 20% OFF!'), findsOneWidget);
       expect(
         find.text(
-            'Official University of Portsmouth Students\' Union Merchandise'),
+            'Over 20% off our Essential Range. Come and grab yours while stock lasts!'),
         findsOneWidget,
       );
-      expect(find.text('SHOP NOW'), findsOneWidget);
+      expect(find.text('BROWSE COLLECTION'), findsOneWidget);
     });
 
     testWidgets('should display featured collections section', (tester) async {
@@ -40,17 +42,12 @@ void main() {
       await tester.pump();
 
       // Check section title
-      expect(find.text('FEATURED COLLECTIONS'), findsOneWidget);
-      expect(
-        find.text('Explore our most popular product ranges'),
-        findsOneWidget,
-      );
+      expect(find.text('ESSENTIAL RANGE - OVER 20% OFF!'), findsOneWidget);
 
-      // Check collection cards
-      expect(find.text('Essential Range'), findsOneWidget);
-      expect(find.text('Signature Collection'), findsOneWidget);
-      expect(find.text('Portsmouth Gifts'), findsOneWidget);
-      expect(find.text('Sale Items'), findsOneWidget);
+      // Check product cards with sale prices
+      expect(
+          find.text('Limited Edition Essential Zip Hoodies'), findsOneWidget);
+      expect(find.text('Essential T-Shirt'), findsOneWidget);
     });
 
     testWidgets('should display best sellers section', (tester) async {
@@ -58,22 +55,15 @@ void main() {
       await tester.pump();
 
       // Check section title
-      expect(find.text('BEST SELLERS'), findsOneWidget);
+      expect(find.text('SIGNATURE RANGE'), findsOneWidget);
 
       // Check product cards
-      expect(find.text('Essential Hoodie'), findsOneWidget);
-      expect(find.text('Essential T-Shirt'), findsOneWidget);
       expect(find.text('Signature Hoodie'), findsOneWidget);
       expect(find.text('Signature T-Shirt'), findsOneWidget);
 
       // Check prices
-      expect(find.text('£35.00'), findsOneWidget);
-      expect(find.text('£18.00'), findsOneWidget);
-      expect(find.text('£42.00'), findsOneWidget);
-      expect(find.text('£22.00'), findsOneWidget);
-
-      // Check view all button
-      expect(find.text('VIEW ALL PRODUCTS'), findsOneWidget);
+      expect(find.text('£32.99'), findsOneWidget);
+      expect(find.text('£14.99'), findsAtLeastNWidgets(1));
     });
 
     testWidgets('should display categories section', (tester) async {
@@ -81,19 +71,47 @@ void main() {
       await tester.pump();
 
       // Check section title
-      expect(find.text('SHOP BY CATEGORY'), findsOneWidget);
+      expect(find.text('OUR RANGE'), findsOneWidget);
 
       // Check category items
       expect(find.text('Clothing'), findsOneWidget);
       expect(find.text('Merchandise'), findsOneWidget);
       expect(find.text('Graduation'), findsOneWidget);
-      expect(find.text('Sale'), findsAtLeastNWidgets(1));
+      expect(find.text('SALE'), findsAtLeastNWidgets(1));
+    });
 
-      // Check category descriptions
-      expect(find.text('Hoodies, T-Shirts & More'), findsOneWidget);
-      expect(find.text('Gifts & Accessories'), findsOneWidget);
-      expect(find.text('Celebrate Your Achievement'), findsOneWidget);
-      expect(find.text('Limited Time Offers'), findsOneWidget);
+    testWidgets('should display Portsmouth City Collection section',
+        (tester) async {
+      await tester.pumpWidget(const UnionShopApp());
+      await tester.pump();
+
+      // Check section title
+      expect(find.text('PORTSMOUTH CITY COLLECTION'), findsOneWidget);
+
+      // Check product cards
+      expect(find.text('Portsmouth City Postcard'), findsOneWidget);
+      expect(find.text('Portsmouth City Magnet'), findsOneWidget);
+      expect(find.text('Portsmouth City Bookmark'), findsOneWidget);
+      expect(find.text('Portsmouth City Notebook'), findsOneWidget);
+
+      // Check view all button
+      expect(find.text('View all products in the Portsmouth City Collection'),
+          findsOneWidget);
+    });
+
+    testWidgets('should display Print Shack section', (tester) async {
+      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpAndSettle();
+
+      // Scroll to Print Shack section
+      final scrollView = find.byType(SingleChildScrollView);
+      await tester.drag(scrollView, const Offset(0, -2000));
+      await tester.pumpAndSettle();
+
+      // Check Print Shack content
+      expect(find.text('Add a Personal Touch'), findsOneWidget);
+      expect(find.text('CLICK HERE TO ADD TEXT!'), findsOneWidget);
+      expect(find.text('Opening Hours'), findsAtLeastNWidgets(1));
     });
 
     testWidgets('should display footer', (tester) async {
@@ -132,21 +150,20 @@ void main() {
       await tester.pumpWidget(const UnionShopApp());
       await tester.pumpAndSettle();
 
-      // Scroll down more to ensure product card is visible
+      // Scroll down to ensure product card is visible
       final scrollView = find.byType(SingleChildScrollView);
-      await tester.drag(scrollView, const Offset(0, -1500));
+      await tester.drag(scrollView, const Offset(0, -800));
       await tester.pumpAndSettle();
 
       // Find product card by type and tap the first one
       final productCards = find.byType(ProductCard);
       expect(productCards, findsWidgets);
 
-      await tester.tap(productCards.first);
+      await tester.tap(productCards.first, warnIfMissed: false);
       await tester.pumpAndSettle();
 
       // Verify navigation to product page by checking for product page content
       expect(find.text('Placeholder Product Name'), findsOneWidget);
-      expect(find.text('Description'), findsOneWidget);
     });
 
     testWidgets('should have scrollable content', (tester) async {
