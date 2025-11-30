@@ -10,7 +10,7 @@ void main() {
 
     testWidgets('should display header with announcement bar', (tester) async {
       await tester.pumpWidget(createTestWidget());
-      await tester.pump();
+      await tester.pumpAndSettle(); // Wait for async loading
 
       // Check announcement bar
       expect(
@@ -30,7 +30,7 @@ void main() {
 
     testWidgets('should display page title', (tester) async {
       await tester.pumpWidget(createTestWidget());
-      await tester.pump();
+      await tester.pumpAndSettle(); // Wait for async loading
 
       expect(
         find.text('Collections'),
@@ -38,9 +38,20 @@ void main() {
       );
     });
 
+    testWidgets('should display loading indicator initially', (tester) async {
+      await tester.pumpWidget(createTestWidget());
+      await tester.pump(); // Don't wait for loading to complete
+
+      // Should show loading indicator
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+
+      // Complete the async operation
+      await tester.pumpAndSettle();
+    });
+
     testWidgets('should display all collection links', (tester) async {
       await tester.pumpWidget(createTestWidget());
-      await tester.pump();
+      await tester.pumpAndSettle(); // Wait for async loading
 
       // Check for various collections
       expect(find.text('Essential Range'), findsOneWidget);
@@ -53,7 +64,7 @@ void main() {
 
     testWidgets('should display seasonal collections', (tester) async {
       await tester.pumpWidget(createTestWidget());
-      await tester.pump();
+      await tester.pumpAndSettle(); // Wait for async loading
 
       expect(find.text('Autumn Favourites'), findsOneWidget);
       expect(find.text('Winter Favourites'), findsOneWidget);
@@ -63,7 +74,7 @@ void main() {
 
     testWidgets('should display special collections', (tester) async {
       await tester.pumpWidget(createTestWidget());
-      await tester.pump();
+      await tester.pumpAndSettle(); // Wait for async loading
 
       expect(find.text('Black Friday'), findsOneWidget);
       expect(find.text('Pride Collection'), findsOneWidget);
@@ -72,7 +83,7 @@ void main() {
 
     testWidgets('should have scrollable content', (tester) async {
       await tester.pumpWidget(createTestWidget());
-      await tester.pump();
+      await tester.pumpAndSettle(); // Wait for async loading
 
       // Verify SingleChildScrollView exists
       expect(find.byType(SingleChildScrollView), findsOneWidget);
@@ -80,7 +91,7 @@ void main() {
 
     testWidgets('should display footer', (tester) async {
       await tester.pumpWidget(createTestWidget());
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(); // Wait for async loading
 
       // Scroll to footer
       final scrollView = find.byType(SingleChildScrollView);
@@ -93,7 +104,7 @@ void main() {
 
     testWidgets('collections should be tappable', (tester) async {
       await tester.pumpWidget(createTestWidget());
-      await tester.pump();
+      await tester.pumpAndSettle(); // Wait for async loading
 
       // Find a collection card
       final essentialRange = find.text('Essential Range');
@@ -109,7 +120,7 @@ void main() {
 
     testWidgets('should display collections in a grid layout', (tester) async {
       await tester.pumpWidget(createTestWidget());
-      await tester.pump();
+      await tester.pumpAndSettle(); // Wait for async loading
 
       // Verify GridView exists
       expect(find.byType(GridView), findsOneWidget);
@@ -117,7 +128,7 @@ void main() {
 
     testWidgets('should display collection cards with images', (tester) async {
       await tester.pumpWidget(createTestWidget());
-      await tester.pump();
+      await tester.pumpAndSettle(); // Wait for async loading
 
       // Check that collection cards have Stack layout for image + text overlay
       expect(find.byType(Stack), findsWidgets);
