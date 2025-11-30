@@ -3,8 +3,8 @@ import 'package:union_shop/product_page.dart';
 import 'package:union_shop/screens/about_page.dart';
 import 'package:union_shop/widgets/product_card.dart';
 import 'package:union_shop/widgets/collection_card.dart';
-import 'package:union_shop/widgets/category_list_item.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
+import 'package:union_shop/widgets/hero_carousel.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -58,19 +58,25 @@ class HomeScreen extends StatelessWidget {
             // Header with announcement bar and navigation
             _buildHeader(context),
 
-            // Hero Banner Section
-            _buildHeroBanner(),
+            // Hero Carousel/Slideshow Section
+            _buildHeroCarousel(),
 
-            // Featured Collections Section
-            _buildFeaturedCollections(),
+            // Essential Range Section (Featured Sale Items)
+            _buildEssentialRangeSection(),
 
-            // Best Sellers Section
-            _buildBestSellers(),
+            // Signature Range Section
+            _buildSignatureRangeSection(),
 
-            // Categories Section
-            _buildCategoriesSection(),
+            // Portsmouth City Collection Section
+            _buildPortsmouthCitySection(),
 
-            // Footer (placeholder for now)
+            // Our Range Section (Categories)
+            _buildOurRangeSection(),
+
+            // Print Shack / Info Section
+            _buildPrintShackSection(),
+
+            // Footer
             _buildFooter(context),
           ],
         ),
@@ -87,15 +93,16 @@ class HomeScreen extends StatelessWidget {
           // Announcement Bar
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 12),
             color: const Color(0xFF4d2963),
             child: const Text(
-              '🎓 STUDENT DISCOUNT AVAILABLE',
+              'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF!',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.5,
               ),
             ),
           ),
@@ -108,19 +115,13 @@ class HomeScreen extends StatelessWidget {
                 // Logo
                 GestureDetector(
                   onTap: () => navigateToHome(context),
-                  child: Image.asset(
-                    'assets/images/logo.png',
-                    height: 40,
-                    errorBuilder: (context, error, stackTrace) {
-                      return const Text(
-                        'UPSU SHOP',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF4d2963),
-                        ),
-                      );
-                    },
+                  child: const Text(
+                    'upsu-store',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF4d2963),
+                    ),
                   ),
                 ),
                 // Navigation Icons
@@ -138,10 +139,6 @@ class HomeScreen extends StatelessWidget {
                       icon: const Icon(Icons.shopping_bag_outlined, size: 24),
                       onPressed: placeholderCallbackForButtons,
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.menu, size: 24),
-                      onPressed: placeholderCallbackForButtons,
-                    ),
                   ],
                 ),
               ],
@@ -152,128 +149,47 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  // Hero Banner with Call-to-Action
-  Widget _buildHeroBanner() {
-    return Container(
-      height: 450,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: const AssetImage('assets/images/hero_banner.png'),
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            Colors.black.withValues(alpha: 0.4),
-            BlendMode.darken,
-          ),
-        ),
-      ),
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'WELCOME TO UPSU SHOP',
-                style: TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  letterSpacing: 2,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                'Official University of Portsmouth Students\' Union Merchandise',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.white,
-                  height: 1.4,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 32),
-              ElevatedButton(
-                onPressed: placeholderCallbackForButtons,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF4d2963),
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 16,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
-                child: const Text(
-                  'SHOP NOW',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.5,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  // Hero Carousel/Slideshow with promotional banners
+  Widget _buildHeroCarousel() {
+    return const HeroCarousel();
   }
 
-  // Featured Collections
-  Widget _buildFeaturedCollections() {
+  // Essential Range Section - Featured Sale Products
+  Widget _buildEssentialRangeSection() {
     return Container(
       color: Colors.white,
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
       child: Column(
         children: [
           const Text(
-            'FEATURED COLLECTIONS',
+            'ESSENTIAL RANGE - OVER 20% OFF!',
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
-              letterSpacing: 1.5,
+              letterSpacing: 1,
             ),
+            textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 8),
-          const Text(
-            'Explore our most popular product ranges',
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey,
-            ),
-          ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 24),
           GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             crossAxisCount: 2,
-            crossAxisSpacing: 16,
+            crossAxisSpacing: 12,
             mainAxisSpacing: 16,
-            childAspectRatio: 0.75,
+            childAspectRatio: 0.62,
             children: const [
-              CollectionCard(
-                title: 'Essential Range',
-                subtitle: 'Classic designs',
+              ProductCard(
+                title: 'Limited Edition Essential Zip Hoodies',
+                price: '£14.99',
+                originalPrice: '£20.00',
                 imageUrl: 'assets/images/essential_hoodie.png',
               ),
-              CollectionCard(
-                title: 'Signature Collection',
-                subtitle: 'Premium quality',
-                imageUrl: 'assets/images/signature_hoodie.png',
-              ),
-              CollectionCard(
-                title: 'Portsmouth Gifts',
-                subtitle: 'Souvenirs & more',
-                imageUrl: 'assets/images/portsmouth_postcard.png',
-              ),
-              CollectionCard(
-                title: 'Sale Items',
-                subtitle: 'Up to 50% off',
-                imageUrl: 'assets/images/category_sale.png',
+              ProductCard(
+                title: 'Essential T-Shirt',
+                price: '£6.99',
+                originalPrice: '£10.00',
+                imageUrl: 'assets/images/essential_tshirt.png',
               ),
             ],
           ),
@@ -282,49 +198,92 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  // Best Sellers Section
-  Widget _buildBestSellers() {
+  // Signature Range Section
+  Widget _buildSignatureRangeSection() {
     return Container(
       color: Colors.grey[50],
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
       child: Column(
         children: [
           const Text(
-            'BEST SELLERS',
+            'SIGNATURE RANGE',
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
-              letterSpacing: 1.5,
+              letterSpacing: 1,
             ),
+            textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 24),
           GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             crossAxisCount: 2,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 24,
-            childAspectRatio: 0.65,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 16,
+            childAspectRatio: 0.62,
             children: const [
               ProductCard(
-                title: 'Essential Hoodie',
-                price: '£35.00',
-                imageUrl: 'assets/images/essential_hoodie.png',
-              ),
-              ProductCard(
-                title: 'Essential T-Shirt',
-                price: '£18.00',
-                imageUrl: 'assets/images/essential_tshirt.png',
-              ),
-              ProductCard(
                 title: 'Signature Hoodie',
-                price: '£42.00',
+                price: '£32.99',
                 imageUrl: 'assets/images/signature_hoodie.png',
               ),
               ProductCard(
                 title: 'Signature T-Shirt',
-                price: '£22.00',
+                price: '£14.99',
                 imageUrl: 'assets/images/signature_tshirt.png',
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Portsmouth City Collection Section
+  Widget _buildPortsmouthCitySection() {
+    return Container(
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+      child: Column(
+        children: [
+          const Text(
+            'PORTSMOUTH CITY COLLECTION',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 24),
+          GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 16,
+            childAspectRatio: 0.62,
+            children: const [
+              ProductCard(
+                title: 'Portsmouth City Postcard',
+                price: '£1.00',
+                imageUrl: 'assets/images/portsmouth_postcard.png',
+              ),
+              ProductCard(
+                title: 'Portsmouth City Magnet',
+                price: '£4.50',
+                imageUrl: 'assets/images/portsmouth_magnet.png',
+              ),
+              ProductCard(
+                title: 'Portsmouth City Bookmark',
+                price: '£3.00',
+                imageUrl: 'assets/images/portsmouth_bookmark.png',
+              ),
+              ProductCard(
+                title: 'Portsmouth City Notebook',
+                price: '£7.50',
+                imageUrl: 'assets/images/portsmouth_notebook.png',
               ),
             ],
           ),
@@ -340,12 +299,12 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             child: const Text(
-              'VIEW ALL PRODUCTS',
+              'View all products in the Portsmouth City Collection',
               style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1.2,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
               ),
+              textAlign: TextAlign.center,
             ),
           ),
         ],
@@ -353,48 +312,155 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  // Categories Section
-  Widget _buildCategoriesSection() {
+  // Our Range Section - Category tiles
+  Widget _buildOurRangeSection() {
     return Container(
-      color: Colors.white,
-      padding: const EdgeInsets.all(24),
-      child: const Column(
+      color: Colors.grey[50],
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+      child: Column(
         children: [
-          Text(
-            'SHOP BY CATEGORY',
+          const Text(
+            'OUR RANGE',
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
-              letterSpacing: 1.5,
+              letterSpacing: 1,
             ),
+            textAlign: TextAlign.center,
           ),
-          SizedBox(height: 32),
-          Column(
-            children: [
-              CategoryListItem(
+          const SizedBox(height: 24),
+          GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 1.1,
+            children: const [
+              CollectionCard(
                 title: 'Clothing',
-                description: 'Hoodies, T-Shirts & More',
+                subtitle: '',
                 imageUrl: 'assets/images/category_clothing.png',
               ),
-              SizedBox(height: 16),
-              CategoryListItem(
+              CollectionCard(
                 title: 'Merchandise',
-                description: 'Gifts & Accessories',
+                subtitle: '',
                 imageUrl: 'assets/images/category_merchandise.png',
               ),
-              SizedBox(height: 16),
-              CategoryListItem(
+              CollectionCard(
                 title: 'Graduation',
-                description: 'Celebrate Your Achievement',
+                subtitle: '',
                 imageUrl: 'assets/images/category_graduation.png',
               ),
-              SizedBox(height: 16),
-              CategoryListItem(
-                title: 'Sale',
-                description: 'Limited Time Offers',
+              CollectionCard(
+                title: 'SALE',
+                subtitle: '',
                 imageUrl: 'assets/images/category_sale.png',
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Print Shack / Personalization Section
+  Widget _buildPrintShackSection() {
+    return Container(
+      color: Colors.white,
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Add a Personal Touch',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1,
+            ),
+          ),
+          const SizedBox(height: 16),
+          const Text(
+            'First add your item of clothing to your cart then click below to add your text! One line of text contains 10 characters!',
+            style: TextStyle(
+              fontSize: 14,
+              height: 1.5,
+              color: Colors.black87,
+            ),
+          ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: placeholderCallbackForButtons,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF4d2963),
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24,
+                vertical: 12,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+            child: const Text(
+              'CLICK HERE TO ADD TEXT!',
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1,
+              ),
+            ),
+          ),
+          const SizedBox(height: 32),
+          const Text(
+            'Opening Hours',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 12),
+          const Text(
+            '❄️ Winter Break Closure Dates ❄️',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'Closing 4pm 19/12/2025\nReopening 10am 05/01/2026\nLast post date: 12pm on 18/12/2025',
+            style: TextStyle(
+              fontSize: 13,
+              height: 1.6,
+            ),
+          ),
+          const SizedBox(height: 12),
+          const Divider(),
+          const SizedBox(height: 12),
+          const Text(
+            '(Term Time)\nMonday - Friday 10am - 4pm',
+            style: TextStyle(
+              fontSize: 13,
+              height: 1.6,
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            '(Outside of Term Time / Consolidation Weeks)\nMonday - Friday 10am - 3pm',
+            style: TextStyle(
+              fontSize: 13,
+              height: 1.6,
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'Purchase online 24/7',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ],
       ),
