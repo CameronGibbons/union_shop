@@ -4,8 +4,7 @@ import 'package:union_shop/widgets/collection_card.dart';
 
 void main() {
   group('CollectionCard Widget Tests', () {
-    testWidgets('should display collection title and subtitle',
-        (tester) async {
+    testWidgets('should display collection title and subtitle', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
