@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:union_shop/product_page.dart';
 import 'package:union_shop/screens/about_page.dart';
 import 'package:union_shop/screens/collections_page.dart';
+import 'package:union_shop/screens/collection_detail_page.dart';
 import 'package:union_shop/widgets/product_card.dart';
 import 'package:union_shop/widgets/collection_card.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
@@ -23,10 +24,22 @@ class UnionShopApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
       ),
       home: const HomeScreen(),
-      // By default, the app starts at the '/' route, which is the HomeScreen
       initialRoute: '/',
-      // When navigating to '/product', build and return the ProductPage
-      // In your browser, try this link: http://localhost:49856/#/product
+      onGenerateRoute: (settings) {
+        // Handle dynamic collection routes
+        if (settings.name != null &&
+            settings.name!.startsWith('/collection/')) {
+          final collectionId = settings.name!.substring('/collection/'.length);
+          return MaterialPageRoute(
+            builder: (context) =>
+                CollectionDetailPage(collectionId: collectionId),
+            settings: settings,
+          );
+        }
+
+        // Handle other routes
+        return null;
+      },
       routes: {
         '/product': (context) => const ProductPage(),
         '/about': (context) => const AboutPage(),
