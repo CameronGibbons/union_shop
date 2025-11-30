@@ -87,7 +87,7 @@ void main() {
       expect(find.text('Clothing'), findsOneWidget);
       expect(find.text('Merchandise'), findsOneWidget);
       expect(find.text('Graduation'), findsOneWidget);
-      expect(find.text('Sale'), findsOneWidget);
+      expect(find.text('Sale'), findsAtLeastNWidgets(1));
 
       // Check category descriptions
       expect(find.text('Hoodies, T-Shirts & More'), findsOneWidget);
@@ -110,8 +110,7 @@ void main() {
       expect(find.text('© 2025 UPSU. All rights reserved.'), findsOneWidget);
     });
 
-    testWidgets('should navigate to About page when footer link is tapped',
-        (tester) async {
+    testWidgets('should display comprehensive footer', (tester) async {
       await tester.pumpWidget(const UnionShopApp());
       await tester.pumpAndSettle();
 
@@ -120,19 +119,12 @@ void main() {
       await tester.drag(scrollView, const Offset(0, -4000));
       await tester.pumpAndSettle();
 
-      // Find the About Us link by type
-      final aboutLink = find.ancestor(
-        of: find.text('About Us'),
-        matching: find.byType(GestureDetector),
-      );
-
-      // Tap About Us link
-      await tester.tap(aboutLink);
-      await tester.pumpAndSettle();
-
-      // Verify navigation to About page
-      expect(find.text('Welcome to the Union Shop!'), findsOneWidget);
-      expect(find.text('Opening Hours'), findsOneWidget);
+      // Verify footer content
+      expect(find.text('UPSU SHOP'), findsOneWidget);
+      expect(find.text('Quick Links'), findsOneWidget);
+      expect(find.text('Help & Information'), findsOneWidget);
+      expect(find.text('Follow Us'), findsOneWidget);
+      expect(find.text('© 2025 UPSU. All rights reserved.'), findsOneWidget);
     });
 
     testWidgets('should navigate to product page when product card is tapped',

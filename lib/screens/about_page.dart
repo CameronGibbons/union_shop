@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/widgets/footer_widget.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -203,6 +204,9 @@ class AboutPage extends StatelessWidget {
                 ],
               ),
             ),
+
+            // Footer
+            const FooterWidget(),
           ],
         ),
       ),

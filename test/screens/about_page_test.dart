@@ -62,9 +62,9 @@ void main() {
         ),
       );
 
-      expect(find.text('Opening Hours'), findsOneWidget);
+      expect(find.text('Opening Hours'), findsAtLeastNWidgets(1));
       expect(find.text('Term Time'), findsOneWidget);
-      expect(find.text('Monday - Friday 10am - 4pm'), findsOneWidget);
+      expect(find.text('Monday - Friday 10am - 4pm'), findsAtLeastNWidgets(1));
       expect(find.text('Outside Term Time'), findsOneWidget);
       expect(find.text('Monday - Friday 10am - 3pm'), findsOneWidget);
       expect(find.text('Online Shopping'), findsOneWidget);
@@ -78,11 +78,11 @@ void main() {
         ),
       );
 
-      expect(find.text('Contact Us'), findsOneWidget);
+      expect(find.text('Contact Us'), findsAtLeastNWidgets(1));
       expect(find.text('hello@upsu.net'), findsOneWidget);
       expect(
         find.text('University of Portsmouth Students\' Union'),
-        findsOneWidget,
+        findsAtLeastNWidgets(1),
       );
     });
 

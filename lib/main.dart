@@ -4,6 +4,7 @@ import 'package:union_shop/screens/about_page.dart';
 import 'package:union_shop/widgets/product_card.dart';
 import 'package:union_shop/widgets/collection_card.dart';
 import 'package:union_shop/widgets/category_list_item.dart';
+import 'package:union_shop/widgets/footer_widget.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -402,54 +403,6 @@ class HomeScreen extends StatelessWidget {
 
   // Footer Placeholder
   Widget _buildFooter(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      color: const Color(0xFF2c2c2c),
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'UPSU SHOP',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1.5,
-            ),
-          ),
-          const SizedBox(height: 16),
-          const Text(
-            'University of Portsmouth Students\' Union',
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 14,
-            ),
-          ),
-          const SizedBox(height: 16),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, '/about');
-            },
-            child: const Text(
-              'About Us',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                decoration: TextDecoration.underline,
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          const Text(
-            '© 2025 UPSU. All rights reserved.',
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 12,
-            ),
-          ),
-        ],
-      ),
-    );
+    return const FooterWidget();
   }
 }
