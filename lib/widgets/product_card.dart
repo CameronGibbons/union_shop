@@ -4,12 +4,14 @@ class ProductCard extends StatelessWidget {
   final String title;
   final String price;
   final String imageUrl;
+  final String? originalPrice;
 
   const ProductCard({
     super.key,
     required this.title,
     required this.price,
     required this.imageUrl,
+    this.originalPrice,
   });
 
   @override
@@ -64,14 +66,39 @@ class ProductCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           // Product Price
-          Text(
-            price,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF4d2963),
+          if (originalPrice != null) ...[
+            Row(
+              children: [
+                Text(
+                  price,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  originalPrice!,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey,
+                    decoration: TextDecoration.lineThrough,
+                  ),
+                ),
+              ],
             ),
-          ),
+          ] else ...[
+            Text(
+              price,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF4d2963),
+              ),
+            ),
+          ],
         ],
       ),
     );
