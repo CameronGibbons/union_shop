@@ -106,7 +106,33 @@ void main() {
         find.text('University of Portsmouth Students\' Union'),
         findsOneWidget,
       );
+      expect(find.text('About Us'), findsOneWidget);
       expect(find.text('© 2025 UPSU. All rights reserved.'), findsOneWidget);
+    });
+
+    testWidgets('should navigate to About page when footer link is tapped',
+        (tester) async {
+      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpAndSettle();
+
+      // Scroll to footer
+      final scrollView = find.byType(SingleChildScrollView);
+      await tester.drag(scrollView, const Offset(0, -4000));
+      await tester.pumpAndSettle();
+
+      // Find the About Us link by type
+      final aboutLink = find.ancestor(
+        of: find.text('About Us'),
+        matching: find.byType(GestureDetector),
+      );
+
+      // Tap About Us link
+      await tester.tap(aboutLink);
+      await tester.pumpAndSettle();
+
+      // Verify navigation to About page
+      expect(find.text('Welcome to the Union Shop!'), findsOneWidget);
+      expect(find.text('Opening Hours'), findsOneWidget);
     });
 
     testWidgets('should navigate to product page when product card is tapped',

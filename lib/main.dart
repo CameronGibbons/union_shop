@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/product_page.dart';
+import 'package:union_shop/screens/about_page.dart';
 import 'package:union_shop/widgets/product_card.dart';
 import 'package:union_shop/widgets/collection_card.dart';
 import 'package:union_shop/widgets/category_list_item.dart';
@@ -24,7 +25,10 @@ class UnionShopApp extends StatelessWidget {
       initialRoute: '/',
       // When navigating to '/product', build and return the ProductPage
       // In your browser, try this link: http://localhost:49856/#/product
-      routes: {'/product': (context) => const ProductPage()},
+      routes: {
+        '/product': (context) => const ProductPage(),
+        '/about': (context) => const AboutPage(),
+      },
     );
   }
 }
@@ -66,7 +70,7 @@ class HomeScreen extends StatelessWidget {
             _buildCategoriesSection(),
 
             // Footer (placeholder for now)
-            _buildFooter(),
+            _buildFooter(context),
           ],
         ),
       ),
@@ -397,15 +401,15 @@ class HomeScreen extends StatelessWidget {
   }
 
   // Footer Placeholder
-  Widget _buildFooter() {
+  Widget _buildFooter(BuildContext context) {
     return Container(
       width: double.infinity,
       color: const Color(0xFF2c2c2c),
       padding: const EdgeInsets.all(24),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'UPSU SHOP',
             style: TextStyle(
               color: Colors.white,
@@ -414,16 +418,30 @@ class HomeScreen extends StatelessWidget {
               letterSpacing: 1.5,
             ),
           ),
-          SizedBox(height: 16),
-          Text(
+          const SizedBox(height: 16),
+          const Text(
             'University of Portsmouth Students\' Union',
             style: TextStyle(
               color: Colors.grey,
               fontSize: 14,
             ),
           ),
-          SizedBox(height: 8),
-          Text(
+          const SizedBox(height: 16),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/about');
+            },
+            child: const Text(
+              'About Us',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                decoration: TextDecoration.underline,
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          const Text(
             '© 2025 UPSU. All rights reserved.',
             style: TextStyle(
               color: Colors.grey,
