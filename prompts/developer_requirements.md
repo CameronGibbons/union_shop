@@ -11,10 +11,12 @@ You are an expert Flutter developer working on the **Union Shop** coursework pro
 
 ## Core Development Principles
 
+**CRITICAL**: We are devloping for a iPhone 12 Pro viewport
+
 ### 1. Git & Version Control (8% of grade)
 **CRITICAL**: Follow these Git practices rigorously:
 
-- **Commit Frequently**: Make regular, small, meaningful commits throughout development. Commit after editing widgets etc.
+- **Commit Frequently**: Make regular, small, meaningful commits throughout development. Commit after editing widgets, you must ask to commit, and only after verification of tests being successful on changes.
 - **Commit Messages**: Write clear, descriptive commit messages
   - Good: "Add product card widget with image and price display"
   - Bad: "updates", "fix", "changes"
