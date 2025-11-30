@@ -236,7 +236,12 @@ class _CollectionsPageState extends State<CollectionsPage> {
 
   Widget _buildCollectionCard(Collection collection) {
     return GestureDetector(
-      onTap: placeholderCallbackForButtons,
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          '/collection/${collection.id}',
+        );
+      },
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
