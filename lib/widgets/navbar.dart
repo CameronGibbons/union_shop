@@ -43,12 +43,12 @@ class Navbar extends StatelessWidget {
                   onTap: () => Navigator.pushNamed(context, '/'),
                   child: Image.asset(
                     'assets/images/logo.png',
-                    height: 40,
+                    height: 50,
                     errorBuilder: (context, error, stackTrace) {
                       return const Text(
                         'The UNION',
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 28,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF4d2963),
                           fontFamily: 'Brush Script MT',
@@ -194,12 +194,12 @@ class Navbar extends StatelessWidget {
                         // Logo
                         Image.asset(
                           'assets/images/logo.png',
-                          height: 40,
+                          height: 50,
                           errorBuilder: (context, error, stackTrace) {
                             return const Text(
                               'The UNION',
                               style: TextStyle(
-                                fontSize: 24,
+                                fontSize: 28,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFF4d2963),
                                 fontFamily: 'Brush Script MT',
