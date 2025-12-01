@@ -457,6 +457,7 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
             originalPrice: product.isOnSale
                 ? '£${product.price.toStringAsFixed(2)}'
                 : null,
+            productId: product.id,
           );
         },
       ),
