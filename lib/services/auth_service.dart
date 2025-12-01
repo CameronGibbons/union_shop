@@ -120,16 +120,30 @@ class AuthService {
       final user = currentUser;
       if (user == null) return null;
 
-      final response = await _supabase
+      // Try to get existing profile
+      var response = await _supabase
           .from('profiles')
           .select()
           .eq('id', user.id)
           .maybeSingle();
 
       if (response == null) {
-        // Create profile if it doesn't exist
+        // Profile doesn't exist, create it
         await _createProfile(user);
-        return getUserProfile(); // Retry
+
+        // Wait a bit for the insert to complete
+        await Future.delayed(const Duration(milliseconds: 500));
+
+        // Retry fetching the profile
+        response = await _supabase
+            .from('profiles')
+            .select()
+            .eq('id', user.id)
+            .maybeSingle();
+
+        if (response == null) {
+          throw AuthException('Failed to create profile');
+        }
       }
 
       return UserProfile.fromJson(response);
