@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/models/collection.dart';
 import 'package:union_shop/services/collections_service.dart';
+import 'package:union_shop/services/auth_service.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
 
 class CollectionsPage extends StatefulWidget {
@@ -122,11 +123,18 @@ class _CollectionsPageState extends State<CollectionsPage> {
                     ),
                     IconButton(
                       icon: const Icon(Icons.person_outline, size: 24),
-                      onPressed: placeholderCallbackForButtons,
+                      onPressed: () {
+                        final authService = AuthService();
+                        if (authService.isSignedIn) {
+                          Navigator.pushNamed(context, '/account');
+                        } else {
+                          Navigator.pushNamed(context, '/login');
+                        }
+                      },
                     ),
                     IconButton(
                       icon: const Icon(Icons.shopping_bag_outlined, size: 24),
-                      onPressed: placeholderCallbackForButtons,
+                      onPressed: () => Navigator.pushNamed(context, '/cart'),
                     ),
                   ],
                 ),
