@@ -150,44 +150,83 @@ class HomeScreen extends StatelessWidget {
   Widget _buildEssentialRangeSection() {
     return Container(
       color: Colors.white,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-      child: Column(
-        children: [
-          const Text(
-            'ESSENTIAL RANGE - OVER 20% OFF!',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
-          GridView.count(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 16,
-            childAspectRatio: 0.62,
-            children: const [
-              ProductCard(
-                title: 'Limited Edition Essential Zip Hoodies',
-                price: '£14.99',
-                originalPrice: '£20.00',
-                imageUrl: 'assets/images/essential_hoodie.png',
-                productId: 'limited-edition-zip-hoodie',
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1400),
+          child: Column(
+            children: [
+              const Text(
+                'ESSENTIAL RANGE - OVER 20% OFF!',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1,
+                ),
+                textAlign: TextAlign.center,
               ),
-              ProductCard(
-                title: 'Essential T-Shirt',
-                price: '£6.99',
-                originalPrice: '£10.00',
-                imageUrl: 'assets/images/essential_tshirt.png',
-                productId: 'essential-tshirt',
+              const SizedBox(height: 24),
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  final crossAxisCount = constraints.maxWidth > 1200
+                      ? 4
+                      : constraints.maxWidth > 768
+                          ? 3
+                          : 2;
+                  return GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: crossAxisCount,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                    childAspectRatio: 0.75,
+                    children: const [
+                      ProductCard(
+                        title: 'Limited Edition Essential Zip Hoodies',
+                        price: '£14.99',
+                        originalPrice: '£20.00',
+                        imageUrl: 'assets/images/essential_hoodie.png',
+                        productId: 'limited-edition-zip-hoodie',
+                      ),
+                      ProductCard(
+                        title: 'Essential T-Shirt',
+                        price: '£6.99',
+                        originalPrice: '£10.00',
+                        imageUrl: 'assets/images/essential_tshirt.png',
+                        productId: 'essential-tshirt',
+                      ),
+                    ],
+                  );
+                },
+              ),
+              const SizedBox(height: 12),
+              Builder(
+                builder: (context) => OutlinedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/collection/essential-range');
+                  },
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: const Color(0xFF4d2963),
+                    side: const BorderSide(color: Color(0xFF4d2963)),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                  child: const Text(
+                    'View all products in the Essential Range',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -196,42 +235,81 @@ class HomeScreen extends StatelessWidget {
   Widget _buildSignatureRangeSection() {
     return Container(
       color: Colors.grey[50],
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-      child: Column(
-        children: [
-          const Text(
-            'SIGNATURE RANGE',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
-          GridView.count(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 16,
-            childAspectRatio: 0.62,
-            children: const [
-              ProductCard(
-                title: 'Signature Hoodie',
-                price: '£32.99',
-                imageUrl: 'assets/images/signature_hoodie.png',
-                productId: 'signature-hoodie-featured',
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1400),
+          child: Column(
+            children: [
+              const Text(
+                'SIGNATURE RANGE',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1,
+                ),
+                textAlign: TextAlign.center,
               ),
-              ProductCard(
-                title: 'Signature T-Shirt',
-                price: '£14.99',
-                imageUrl: 'assets/images/signature_tshirt.png',
-                productId: 'signature-tshirt-featured',
+              const SizedBox(height: 24),
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  final crossAxisCount = constraints.maxWidth > 1200
+                      ? 4
+                      : constraints.maxWidth > 768
+                          ? 3
+                          : 2;
+                  return GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: crossAxisCount,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                    childAspectRatio: 0.75,
+                    children: const [
+                      ProductCard(
+                        title: 'Signature Hoodie',
+                        price: '£32.99',
+                        imageUrl: 'assets/images/signature_hoodie.png',
+                        productId: 'signature-hoodie-featured',
+                      ),
+                      ProductCard(
+                        title: 'Signature T-Shirt',
+                        price: '£14.99',
+                        imageUrl: 'assets/images/signature_tshirt.png',
+                        productId: 'signature-tshirt-featured',
+                      ),
+                    ],
+                  );
+                },
+              ),
+              const SizedBox(height: 12),
+              Builder(
+                builder: (context) => OutlinedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/collection/signature-range');
+                  },
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: const Color(0xFF4d2963),
+                    side: const BorderSide(color: Color(0xFF4d2963)),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                  child: const Text(
+                    'View all products in the Signature Range',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -240,74 +318,93 @@ class HomeScreen extends StatelessWidget {
   Widget _buildPortsmouthCitySection() {
     return Container(
       color: Colors.white,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-      child: Column(
-        children: [
-          const Text(
-            'PORTSMOUTH CITY COLLECTION',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
-          GridView.count(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 16,
-            childAspectRatio: 0.62,
-            children: const [
-              ProductCard(
-                title: 'Portsmouth City Postcard',
-                price: '£1.00',
-                imageUrl: 'assets/images/portsmouth_postcard.png',
-                productId: 'portsmouth-postcard',
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1400),
+          child: Column(
+            children: [
+              const Text(
+                'PORTSMOUTH CITY COLLECTION',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1,
+                ),
+                textAlign: TextAlign.center,
               ),
-              ProductCard(
-                title: 'Portsmouth City Magnet',
-                price: '£4.50',
-                imageUrl: 'assets/images/portsmouth_magnet.png',
-                productId: 'portsmouth-magnet',
+              const SizedBox(height: 24),
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  final crossAxisCount = constraints.maxWidth > 1200
+                      ? 4
+                      : constraints.maxWidth > 768
+                          ? 3
+                          : 2;
+                  return GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: crossAxisCount,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                    childAspectRatio: 0.75,
+                    children: const [
+                      ProductCard(
+                        title: 'Portsmouth City Postcard',
+                        price: '£1.00',
+                        imageUrl: 'assets/images/portsmouth_postcard.png',
+                        productId: 'portsmouth-postcard',
+                      ),
+                      ProductCard(
+                        title: 'Portsmouth City Magnet',
+                        price: '£4.50',
+                        imageUrl: 'assets/images/portsmouth_magnet.png',
+                        productId: 'portsmouth-magnet',
+                      ),
+                      ProductCard(
+                        title: 'Portsmouth City Bookmark',
+                        price: '£3.00',
+                        imageUrl: 'assets/images/portsmouth_bookmark.png',
+                        productId: 'portsmouth-bookmark',
+                      ),
+                      ProductCard(
+                        title: 'Portsmouth City Notebook',
+                        price: '£7.50',
+                        imageUrl: 'assets/images/portsmouth_notebook.png',
+                        productId: 'portsmouth-notebook',
+                      ),
+                    ],
+                  );
+                },
               ),
-              ProductCard(
-                title: 'Portsmouth City Bookmark',
-                price: '£3.00',
-                imageUrl: 'assets/images/portsmouth_bookmark.png',
-                productId: 'portsmouth-bookmark',
-              ),
-              ProductCard(
-                title: 'Portsmouth City Notebook',
-                price: '£7.50',
-                imageUrl: 'assets/images/portsmouth_notebook.png',
-                productId: 'portsmouth-notebook',
+              const SizedBox(height: 12),
+              Builder(
+                builder: (context) => OutlinedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/collection/portsmouth-city');
+                  },
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: const Color(0xFF4d2963),
+                    side: const BorderSide(color: Color(0xFF4d2963)),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                  child: const Text(
+                    'View all products in the Portsmouth City Collection',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ),
             ],
           ),
-          const SizedBox(height: 24),
-          OutlinedButton(
-            onPressed: placeholderCallbackForButtons,
-            style: OutlinedButton.styleFrom(
-              foregroundColor: const Color(0xFF4d2963),
-              side: const BorderSide(color: Color(0xFF4d2963)),
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
-              ),
-            ),
-            child: const Text(
-              'View all products in the Portsmouth City Collection',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -317,53 +414,67 @@ class HomeScreen extends StatelessWidget {
     return Container(
       color: Colors.grey[50],
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-      child: Column(
-        children: [
-          const Text(
-            'OUR RANGE',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
-          GridView.count(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            childAspectRatio: 1.1,
-            children: const [
-              CollectionCard(
-                title: 'Clothing',
-                subtitle: '',
-                imageUrl: 'assets/images/category_clothing.png',
-                collectionId: 'clothing',
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1400),
+          child: Column(
+            children: [
+              const Text(
+                'OUR RANGE',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1,
+                ),
+                textAlign: TextAlign.center,
               ),
-              CollectionCard(
-                title: 'Merchandise',
-                subtitle: '',
-                imageUrl: 'assets/images/category_merchandise.png',
-                collectionId: 'merchandise',
-              ),
-              CollectionCard(
-                title: 'Graduation',
-                subtitle: '',
-                imageUrl: 'assets/images/category_graduation.png',
-                collectionId: 'graduation',
-              ),
-              CollectionCard(
-                title: 'SALE',
-                subtitle: '',
-                imageUrl: 'assets/images/category_sale.png',
-                collectionId: 'sale',
+              const SizedBox(height: 24),
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  final crossAxisCount = constraints.maxWidth > 1200
+                      ? 4
+                      : constraints.maxWidth > 768
+                          ? 3
+                          : 2;
+                  return GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: crossAxisCount,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                    childAspectRatio: 1.1,
+                    children: const [
+                      CollectionCard(
+                        title: 'Clothing',
+                        subtitle: '',
+                        imageUrl: 'assets/images/category_clothing.png',
+                        collectionId: 'clothing',
+                      ),
+                      CollectionCard(
+                        title: 'Merchandise',
+                        subtitle: '',
+                        imageUrl: 'assets/images/category_merchandise.png',
+                        collectionId: 'merchandise',
+                      ),
+                      CollectionCard(
+                        title: 'Graduation',
+                        subtitle: '',
+                        imageUrl: 'assets/images/category_graduation.png',
+                        collectionId: 'graduation',
+                      ),
+                      CollectionCard(
+                        title: 'SALE',
+                        subtitle: '',
+                        imageUrl: 'assets/images/category_sale.png',
+                        collectionId: 'sale',
+                      ),
+                    ],
+                  );
+                },
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
