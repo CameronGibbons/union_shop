@@ -1,0 +1,282 @@
+import 'package:flutter/material.dart';
+import 'package:union_shop/services/auth_service.dart';
+
+class Navbar extends StatelessWidget {
+  const Navbar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isDesktop = screenWidth > 768;
+
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          // Announcement Bar
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            color: const Color(0xFF4d2963),
+            child: const Text(
+              'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.5,
+              ),
+            ),
+          ),
+          // Main Navigation
+          Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: isDesktop ? 32 : 16,
+              vertical: 12,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Logo
+                GestureDetector(
+                  onTap: () => Navigator.pushNamed(context, '/'),
+                  child: Image.asset(
+                    'assets/images/logo.png',
+                    height: 40,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Text(
+                        'The UNION',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF4d2963),
+                          fontFamily: 'Brush Script MT',
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
+                // Desktop Navigation Links
+                if (isDesktop) ...[
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _NavLink(
+                          label: 'Home',
+                          onTap: () => Navigator.pushNamed(context, '/'),
+                        ),
+                        _NavLink(
+                          label: 'Shop',
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/collections'),
+                        ),
+                        _NavLink(
+                          label: 'The Print Shack',
+                          onTap: () {
+                            // TODO: Implement Print Shack
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Print Shack coming soon!'),
+                              ),
+                            );
+                          },
+                        ),
+                        _NavLink(
+                          label: 'SALE!',
+                          onTap: () => Navigator.pushNamed(context, '/sale'),
+                          isHighlighted: true,
+                        ),
+                        _NavLink(
+                          label: 'About',
+                          onTap: () => Navigator.pushNamed(context, '/about'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+
+                // Icons (always visible)
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.search, size: 24),
+                      onPressed: () {
+                        // TODO: Implement search
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Search coming soon!'),
+                          ),
+                        );
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.person_outline, size: 24),
+                      onPressed: () {
+                        final authService = AuthService();
+                        if (authService.isSignedIn) {
+                          Navigator.pushNamed(context, '/account');
+                        } else {
+                          Navigator.pushNamed(context, '/login');
+                        }
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.shopping_bag_outlined, size: 24),
+                      onPressed: () {
+                        // TODO: Implement cart
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Shopping cart coming soon!'),
+                          ),
+                        );
+                      },
+                    ),
+                    if (!isDesktop)
+                      IconButton(
+                        icon: const Icon(Icons.menu, size: 24),
+                        onPressed: () => _showMobileMenu(context),
+                      ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showMobileMenu(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Container(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _MobileMenuItem(
+              label: 'Home',
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/');
+              },
+            ),
+            _MobileMenuItem(
+              label: 'Shop',
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/collections');
+              },
+            ),
+            _MobileMenuItem(
+              label: 'The Print Shack',
+              onTap: () {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Print Shack coming soon!'),
+                  ),
+                );
+              },
+            ),
+            _MobileMenuItem(
+              label: 'SALE!',
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/sale');
+              },
+              isHighlighted: true,
+            ),
+            _MobileMenuItem(
+              label: 'About',
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/about');
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _NavLink extends StatefulWidget {
+  final String label;
+  final VoidCallback onTap;
+  final bool isHighlighted;
+
+  const _NavLink({
+    required this.label,
+    required this.onTap,
+    this.isHighlighted = false,
+  });
+
+  @override
+  State<_NavLink> createState() => _NavLinkState();
+}
+
+class _NavLinkState extends State<_NavLink> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: MouseRegion(
+        onEnter: (_) => setState(() => _isHovered = true),
+        onExit: (_) => setState(() => _isHovered = false),
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: widget.onTap,
+          child: Text(
+            widget.label,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight:
+                  widget.isHighlighted ? FontWeight.w600 : FontWeight.w500,
+              color: widget.isHighlighted
+                  ? Colors.red
+                  : (_isHovered ? const Color(0xFF4d2963) : Colors.black87),
+              decoration: _isHovered ? TextDecoration.underline : null,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _MobileMenuItem extends StatelessWidget {
+  final String label;
+  final VoidCallback onTap;
+  final bool isHighlighted;
+
+  const _MobileMenuItem({
+    required this.label,
+    required this.onTap,
+    this.isHighlighted = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: isHighlighted ? FontWeight.w600 : FontWeight.w500,
+            color: isHighlighted ? Colors.red : Colors.black87,
+          ),
+        ),
+      ),
+    );
+  }
+}
