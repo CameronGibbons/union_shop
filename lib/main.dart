@@ -10,6 +10,7 @@ import 'package:union_shop/screens/login_page.dart';
 import 'package:union_shop/screens/signup_page.dart';
 import 'package:union_shop/screens/account_page.dart';
 import 'package:union_shop/screens/forgot_password_page.dart';
+import 'package:union_shop/screens/print_shack_page.dart';
 import 'package:union_shop/services/auth_service.dart';
 import 'package:union_shop/widgets/product_card.dart';
 import 'package:union_shop/widgets/collection_card.dart';
@@ -71,6 +72,7 @@ class UnionShopApp extends StatelessWidget {
         '/about': (context) => const AboutPage(),
         '/collections': (context) => const CollectionsPage(),
         '/sale': (context) => const SaleCollectionPage(),
+        '/print-shack': (context) => const PrintShackPage(),
         '/login': (context) => const LoginPage(),
         '/signup': (context) => const SignupPage(),
         '/account': (context) => const AccountPage(),
@@ -120,7 +122,7 @@ class HomeScreen extends StatelessWidget {
             _buildOurRangeSection(),
 
             // Print Shack / Info Section
-            _buildPrintShackSection(),
+            _buildPrintShackSection(context),
 
             // Footer
             _buildFooter(context),
@@ -354,7 +356,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   // Print Shack / Personalization Section
-  Widget _buildPrintShackSection() {
+  Widget _buildPrintShackSection(BuildContext context) {
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.all(24),
@@ -380,7 +382,9 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           ElevatedButton(
-            onPressed: placeholderCallbackForButtons,
+            onPressed: () {
+              Navigator.pushNamed(context, '/print-shack');
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF4d2963),
               foregroundColor: Colors.white,

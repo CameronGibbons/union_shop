@@ -75,14 +75,8 @@ class Navbar extends StatelessWidget {
                         ),
                         _NavLink(
                           label: 'The Print Shack',
-                          onTap: () {
-                            // TODO: Implement Print Shack
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Print Shack coming soon!'),
-                              ),
-                            );
-                          },
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/print-shack'),
                         ),
                         _NavLink(
                           label: 'SALE!',
@@ -290,11 +284,7 @@ class Navbar extends StatelessWidget {
                             label: 'The Print Shack',
                             onTap: () {
                               Navigator.pop(context);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Print Shack coming soon!'),
-                                ),
-                              );
+                              Navigator.pushNamed(context, '/print-shack');
                             },
                             hasChevron: true,
                           ),
