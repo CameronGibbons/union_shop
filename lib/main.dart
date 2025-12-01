@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:union_shop/product_page.dart';
+import 'package:union_shop/screens/product_page.dart';
 import 'package:union_shop/screens/about_page.dart';
 import 'package:union_shop/screens/collections_page.dart';
 import 'package:union_shop/screens/collection_detail_page.dart';
@@ -37,11 +37,21 @@ class UnionShopApp extends StatelessWidget {
           );
         }
 
+        // Handle dynamic product routes
+        if (settings.name != null && settings.name!.startsWith('/product/')) {
+          final productId = settings.name!.substring('/product/'.length);
+          return MaterialPageRoute(
+            builder: (context) => ProductPage(productId: productId),
+            settings: settings,
+          );
+        }
+
         // Handle other routes
         return null;
       },
       routes: {
-        '/product': (context) => const ProductPage(),
+        '/product': (context) =>
+            const ProductPage(productId: 'classic-sweatshirt'),
         '/about': (context) => const AboutPage(),
         '/collections': (context) => const CollectionsPage(),
       },
@@ -199,12 +209,14 @@ class HomeScreen extends StatelessWidget {
                 price: '£14.99',
                 originalPrice: '£20.00',
                 imageUrl: 'assets/images/essential_hoodie.png',
+                productId: 'limited-edition-zip-hoodie',
               ),
               ProductCard(
                 title: 'Essential T-Shirt',
                 price: '£6.99',
                 originalPrice: '£10.00',
                 imageUrl: 'assets/images/essential_tshirt.png',
+                productId: 'essential-tshirt',
               ),
             ],
           ),
@@ -242,11 +254,13 @@ class HomeScreen extends StatelessWidget {
                 title: 'Signature Hoodie',
                 price: '£32.99',
                 imageUrl: 'assets/images/signature_hoodie.png',
+                productId: 'signature-hoodie-featured',
               ),
               ProductCard(
                 title: 'Signature T-Shirt',
                 price: '£14.99',
                 imageUrl: 'assets/images/signature_tshirt.png',
+                productId: 'signature-tshirt-featured',
               ),
             ],
           ),
@@ -284,21 +298,25 @@ class HomeScreen extends StatelessWidget {
                 title: 'Portsmouth City Postcard',
                 price: '£1.00',
                 imageUrl: 'assets/images/portsmouth_postcard.png',
+                productId: 'portsmouth-postcard',
               ),
               ProductCard(
                 title: 'Portsmouth City Magnet',
                 price: '£4.50',
                 imageUrl: 'assets/images/portsmouth_magnet.png',
+                productId: 'portsmouth-magnet',
               ),
               ProductCard(
                 title: 'Portsmouth City Bookmark',
                 price: '£3.00',
                 imageUrl: 'assets/images/portsmouth_bookmark.png',
+                productId: 'portsmouth-bookmark',
               ),
               ProductCard(
                 title: 'Portsmouth City Notebook',
                 price: '£7.50',
                 imageUrl: 'assets/images/portsmouth_notebook.png',
+                productId: 'portsmouth-notebook',
               ),
             ],
           ),
