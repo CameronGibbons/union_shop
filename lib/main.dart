@@ -12,6 +12,7 @@ import 'package:union_shop/screens/account_page.dart';
 import 'package:union_shop/screens/forgot_password_page.dart';
 import 'package:union_shop/screens/print_shack_page.dart';
 import 'package:union_shop/screens/cart_page.dart';
+import 'package:union_shop/screens/search_results_page.dart';
 import 'package:union_shop/services/auth_service.dart';
 import 'package:union_shop/services/cart_service.dart';
 import 'package:union_shop/widgets/product_card.dart';
@@ -80,6 +81,7 @@ class UnionShopApp extends StatelessWidget {
         '/sale': (context) => const SaleCollectionPage(),
         '/print-shack': (context) => const PrintShackPage(),
         '/cart': (context) => const CartPage(),
+        '/search': (context) => const SearchResultsPage(),
         '/login': (context) => const LoginPage(),
         '/signup': (context) => const SignupPage(),
         '/account': (context) => const AccountPage(),
@@ -495,15 +497,15 @@ class _AuthWrapperState extends State<AuthWrapper> {
     final currentUrl = web.window.location.href;
     final uri = Uri.parse(currentUrl);
     final hasCode = uri.queryParameters.containsKey('code');
-    
+
     if (hasCode) {
       // Clean up the URL by removing query parameters
       final cleanUrl = uri.replace(queryParameters: {}).toString();
       web.window.history.replaceState(null, '', cleanUrl);
-      
+
       // Wait a bit for Supabase to process the OAuth callback
       await Future.delayed(const Duration(milliseconds: 500));
-      
+
       // Check if user is now signed in
       try {
         final authService = AuthService();
@@ -516,7 +518,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
         // Continue to show home screen
       }
     }
-    
+
     await Future.delayed(const Duration(milliseconds: 300));
     if (mounted) {
       setState(() {
