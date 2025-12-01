@@ -458,6 +458,7 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
                 ? '£${product.price.toStringAsFixed(2)}'
                 : null,
             productId: product.id,
+            isSoldOut: !product.isInStock,
           );
         },
       ),
