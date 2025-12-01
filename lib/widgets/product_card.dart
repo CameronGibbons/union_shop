@@ -5,6 +5,7 @@ class ProductCard extends StatelessWidget {
   final String price;
   final String imageUrl;
   final String? originalPrice;
+  final String? productId;
 
   const ProductCard({
     super.key,
@@ -12,13 +13,18 @@ class ProductCard extends StatelessWidget {
     required this.price,
     required this.imageUrl,
     this.originalPrice,
+    this.productId,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/product');
+        if (productId != null) {
+          Navigator.pushNamed(context, '/product/$productId');
+        } else {
+          Navigator.pushNamed(context, '/product');
+        }
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
