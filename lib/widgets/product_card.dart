@@ -36,7 +36,8 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Product Image
-            Expanded(
+            AspectRatio(
+              aspectRatio: 1.0,
               child: Stack(
                 children: [
                   Container(
@@ -77,7 +78,7 @@ class ProductCard extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
             // Product Title
             Text(
               title,
