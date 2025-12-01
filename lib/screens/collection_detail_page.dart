@@ -3,6 +3,7 @@ import 'package:union_shop/models/collection.dart';
 import 'package:union_shop/models/product.dart';
 import 'package:union_shop/services/collections_service.dart';
 import 'package:union_shop/services/products_service.dart';
+import 'package:union_shop/services/auth_service.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
 import 'package:union_shop/widgets/product_card.dart';
 
@@ -210,11 +211,18 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
                     ),
                     IconButton(
                       icon: const Icon(Icons.person_outline, size: 24),
-                      onPressed: placeholderCallbackForButtons,
+                      onPressed: () {
+                        final authService = AuthService();
+                        if (authService.isSignedIn) {
+                          Navigator.pushNamed(context, '/account');
+                        } else {
+                          Navigator.pushNamed(context, '/login');
+                        }
+                      },
                     ),
                     IconButton(
                       icon: const Icon(Icons.shopping_bag_outlined, size: 24),
-                      onPressed: placeholderCallbackForButtons,
+                      onPressed: () => Navigator.pushNamed(context, '/cart'),
                     ),
                   ],
                 ),
