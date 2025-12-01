@@ -183,6 +183,20 @@ class ProductsService {
       collectionId: 'sale',
       description: 'Final clearance item',
     ),
+    Product(
+      id: 'a5-notepad-sale',
+      name: 'A5 Notepad',
+      price: 3.50,
+      salePrice: 2.00,
+      imageUrl: 'assets/images/portsmouth_notebook.png',
+      category: 'Stationery',
+      sizes: [],
+      colors: ['Purple'],
+      stock: 0,
+      isSale: true,
+      collectionId: 'sale',
+      description: 'A5 notepad - sold out',
+    ),
     // Homepage featured products
     Product(
       id: 'limited-edition-zip-hoodie',
