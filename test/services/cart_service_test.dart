@@ -128,7 +128,8 @@ void main() {
       );
 
       await cartService.addToCart(item);
-      await cartService.updateQuantity('test-product', 5, color: 'Red', size: 'M');
+      await cartService.updateQuantity('test-product', 5,
+          color: 'Red', size: 'M');
 
       expect(cartService.cartItems[0].quantity, 5);
       expect(cartService.subtotal, 50.0);
@@ -146,7 +147,8 @@ void main() {
       );
 
       await cartService.addToCart(item);
-      await cartService.updateQuantity('test-product', 0, color: 'Red', size: 'M');
+      await cartService.updateQuantity('test-product', 0,
+          color: 'Red', size: 'M');
 
       expect(cartService.cartItems.length, 0);
     });
@@ -249,8 +251,12 @@ void main() {
 
       await cartService.addToCart(item);
 
-      expect(cartService.getItemQuantity('test-product', color: 'Red', size: 'M'), 3);
-      expect(cartService.getItemQuantity('test-product', color: 'Blue', size: 'M'), 0);
+      expect(
+          cartService.getItemQuantity('test-product', color: 'Red', size: 'M'),
+          3);
+      expect(
+          cartService.getItemQuantity('test-product', color: 'Blue', size: 'M'),
+          0);
     });
 
     test('cart persists across instances', () async {

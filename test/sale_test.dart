@@ -34,7 +34,8 @@ void main() {
           findsOneWidget);
     });
 
-    testWidgets('displays filter and sort controls', (WidgetTester tester) async {
+    testWidgets('displays filter and sort controls',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: SaleCollectionPage(),
@@ -168,7 +169,8 @@ void main() {
       expect(find.text('SALE'), findsOneWidget);
     });
 
-    testWidgets('displays loading state initially', (WidgetTester tester) async {
+    testWidgets('displays loading state initially',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: SaleCollectionPage(),
@@ -225,7 +227,7 @@ void main() {
 
       // Find the announcement banner container (not the outer white container)
       final containers = tester.widgetList<Container>(find.byType(Container));
-      
+
       // Find container with purple background (announcement bar)
       final purpleContainer = containers.firstWhere(
         (container) => container.color == const Color(0xFF4d2963),

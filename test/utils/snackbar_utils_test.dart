@@ -114,8 +114,7 @@ void main() {
       expect(find.text('Error message'), findsOneWidget);
     });
 
-    testWidgets('showInfo displays info snackbar',
-        (WidgetTester tester) async {
+    testWidgets('showInfo displays info snackbar', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

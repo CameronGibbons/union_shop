@@ -28,12 +28,12 @@ void main() {
         final descriptionLower = product.description?.toLowerCase() ?? '';
         final categoryLower = product.category?.toLowerCase() ?? '';
         final collectionLower = product.collectionId.toLowerCase();
-        
+
         expect(
           nameLower.contains('hoodie') ||
-          descriptionLower.contains('hoodie') ||
-          categoryLower.contains('hoodie') ||
-          collectionLower.contains('hoodie'),
+              descriptionLower.contains('hoodie') ||
+              categoryLower.contains('hoodie') ||
+              collectionLower.contains('hoodie'),
           isTrue,
           reason: 'Product ${product.name} does not contain search term',
         );
@@ -44,19 +44,19 @@ void main() {
       final lowerResults = await searchService.searchProducts('hoodie');
       final upperResults = await searchService.searchProducts('HOODIE');
       final mixedResults = await searchService.searchProducts('HoOdIe');
-      
+
       expect(lowerResults.length, equals(upperResults.length));
       expect(lowerResults.length, equals(mixedResults.length));
     });
 
     test('searchProducts sorts by relevance', () async {
       final results = await searchService.searchProducts('essential');
-      
+
       if (results.length > 1) {
         // Check if results are sorted (exact matches should come first)
         final firstProduct = results.first;
         final nameLower = firstProduct.name.toLowerCase();
-        
+
         // First result should have high relevance (exact match or starts with)
         expect(
           nameLower == 'essential' || nameLower.startsWith('essential'),
@@ -78,18 +78,18 @@ void main() {
 
     test('searchProducts handles multi-word queries', () async {
       final results = await searchService.searchProducts('essential hoodie');
-      
+
       if (results.isNotEmpty) {
         // Verify results contain at least one of the words
         for (final product in results) {
           final nameLower = product.name.toLowerCase();
           final descriptionLower = product.description?.toLowerCase() ?? '';
-          
+
           expect(
-            nameLower.contains('essential') || 
-            nameLower.contains('hoodie') ||
-            descriptionLower.contains('essential') ||
-            descriptionLower.contains('hoodie'),
+            nameLower.contains('essential') ||
+                nameLower.contains('hoodie') ||
+                descriptionLower.contains('essential') ||
+                descriptionLower.contains('hoodie'),
             isTrue,
             reason: 'Product should contain at least one search term',
           );
@@ -105,12 +105,12 @@ void main() {
     test('searchProducts handles partial matches', () async {
       final results = await searchService.searchProducts('shirt');
       expect(results, isNotEmpty);
-      
+
       // Should find t-shirts, sweatshirts, etc.
       for (final product in results) {
         final nameLower = product.name.toLowerCase();
         final descriptionLower = product.description?.toLowerCase() ?? '';
-        
+
         expect(
           nameLower.contains('shirt') || descriptionLower.contains('shirt'),
           isTrue,
