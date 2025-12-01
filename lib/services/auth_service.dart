@@ -38,7 +38,15 @@ class AuthService {
         data: {
           'full_name': fullName,
         },
+        emailRedirectTo: null, // Disable email confirmation
       );
+
+      // If email confirmation is disabled, user is auto-signed in
+      // Create profile immediately if it doesn't exist
+      if (response.user != null) {
+        await _createProfile(response.user!);
+      }
+
       return response;
     } on AuthException catch (e) {
       throw AuthException('Sign up failed: ${e.message}');
@@ -135,6 +143,18 @@ class AuthService {
   // Create profile for new user
   Future<void> _createProfile(User user) async {
     try {
+      // First check if profile already exists
+      final existing = await _supabase
+          .from('profiles')
+          .select()
+          .eq('id', user.id)
+          .maybeSingle();
+
+      if (existing != null) {
+        return; // Profile already exists
+      }
+
+      // Create new profile
       await _supabase.from('profiles').insert({
         'id': user.id,
         'email': user.email!,
@@ -143,7 +163,8 @@ class AuthService {
         'created_at': DateTime.now().toIso8601String(),
       });
     } catch (e) {
-      // Profile might already exist, ignore error
+      // Log error but don't throw - profile creation can be retried later
+      print('Error creating profile: $e');
     }
   }
 

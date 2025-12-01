@@ -53,15 +53,14 @@ class _SignupPageState extends State<SignupPage> {
       );
 
       if (mounted) {
-        // Show success message
+        // Show success message and redirect to account
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content:
-                Text('Account created! Please check your email to verify.'),
+            content: Text('Account created successfully!'),
             backgroundColor: Colors.green,
           ),
         );
-        Navigator.of(context).pushReplacementNamed('/login');
+        Navigator.of(context).pushReplacementNamed('/account');
       }
     } on AuthException catch (e) {
       setState(() {
