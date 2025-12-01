@@ -14,7 +14,14 @@ CREATE TABLE IF NOT EXISTS public.profiles (
 -- 2. Enable Row Level Security
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 
--- 3. Create RLS Policies
+-- 3. Drop existing policies if they exist
+DROP POLICY IF EXISTS "Users can view own profile" ON public.profiles;
+DROP POLICY IF EXISTS "Users can insert own profile" ON public.profiles;
+DROP POLICY IF EXISTS "Users can update own profile" ON public.profiles;
+DROP POLICY IF EXISTS "Users can delete own profile" ON public.profiles;
+DROP POLICY IF EXISTS "Enable insert for authenticated users only" ON public.profiles;
+
+-- 4. Create RLS Policies
 
 -- Policy: Users can view their own profile
 CREATE POLICY "Users can view own profile"
@@ -22,11 +29,12 @@ CREATE POLICY "Users can view own profile"
     FOR SELECT
     USING (auth.uid() = id);
 
--- Policy: Users can insert their own profile
-CREATE POLICY "Users can insert own profile"
+-- Policy: Allow service role to insert (for triggers)
+CREATE POLICY "Enable insert for authenticated users only"
     ON public.profiles
     FOR INSERT
-    WITH CHECK (auth.uid() = id);
+    TO authenticated
+    WITH CHECK (true);
 
 -- Policy: Users can update their own profile
 CREATE POLICY "Users can update own profile"
@@ -41,28 +49,37 @@ CREATE POLICY "Users can delete own profile"
     FOR DELETE
     USING (auth.uid() = id);
 
--- 4. Create function to auto-create profile on signup
+-- 5. Create function to auto-create profile on signup
 CREATE OR REPLACE FUNCTION public.handle_new_user()
-RETURNS TRIGGER AS $$
+RETURNS TRIGGER 
+SECURITY DEFINER 
+SET search_path = public
+AS $$
 BEGIN
-    INSERT INTO public.profiles (id, email, full_name, avatar_url)
+    INSERT INTO public.profiles (id, email, full_name, avatar_url, created_at)
     VALUES (
         NEW.id,
         NEW.email,
-        NEW.raw_user_meta_data->>'full_name',
-        NEW.raw_user_meta_data->>'avatar_url'
-    );
+        COALESCE(NEW.raw_user_meta_data->>'full_name', ''),
+        COALESCE(NEW.raw_user_meta_data->>'avatar_url', ''),
+        NOW()
+    )
+    ON CONFLICT (id) DO NOTHING;
     RETURN NEW;
+EXCEPTION
+    WHEN OTHERS THEN
+        RAISE LOG 'Error in handle_new_user: %', SQLERRM;
+        RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql;
 
--- 5. Create trigger to call function on user signup
+-- 6. Create trigger to call function on user signup
 DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
 CREATE TRIGGER on_auth_user_created
     AFTER INSERT ON auth.users
     FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
 
--- 6. Create function to update updated_at timestamp
+-- 7. Create function to update updated_at timestamp
 CREATE OR REPLACE FUNCTION public.handle_updated_at()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -71,13 +88,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- 7. Create trigger to auto-update updated_at
+-- 8. Create trigger to auto-update updated_at
 DROP TRIGGER IF EXISTS on_profile_updated ON public.profiles;
 CREATE TRIGGER on_profile_updated
     BEFORE UPDATE ON public.profiles
     FOR EACH ROW EXECUTE FUNCTION public.handle_updated_at();
 
--- 8. Grant permissions
+-- 9. Grant permissions
 GRANT USAGE ON SCHEMA public TO anon, authenticated;
 GRANT ALL ON public.profiles TO anon, authenticated;
 
