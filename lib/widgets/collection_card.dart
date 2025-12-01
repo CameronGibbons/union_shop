@@ -4,19 +4,23 @@ class CollectionCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final String imageUrl;
+  final String? collectionId;
 
   const CollectionCard({
     super.key,
     required this.title,
     required this.subtitle,
     required this.imageUrl,
+    this.collectionId,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigate to collection page (placeholder)
+        if (collectionId != null) {
+          Navigator.pushNamed(context, '/collection/$collectionId');
+        }
       },
       child: Container(
         decoration: BoxDecoration(
