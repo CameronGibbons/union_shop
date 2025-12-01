@@ -150,56 +150,207 @@ class Navbar extends StatelessWidget {
   }
 
   void _showMobileMenu(BuildContext context) {
-    showModalBottomSheet(
+    showGeneralDialog(
       context: context,
-      builder: (context) => Container(
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _MobileMenuItem(
-              label: 'Home',
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/');
-              },
-            ),
-            _MobileMenuItem(
-              label: 'Shop',
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/collections');
-              },
-            ),
-            _MobileMenuItem(
-              label: 'The Print Shack',
-              onTap: () {
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Print Shack coming soon!'),
+      barrierDismissible: true,
+      barrierLabel: 'Menu',
+      barrierColor: Colors.black54,
+      transitionDuration: const Duration(milliseconds: 300),
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return Align(
+          alignment: Alignment.topRight,
+          child: Material(
+            color: Colors.white,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                children: [
+                  // Header with announcement bar
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    color: const Color(0xFF4d2963),
+                    child: const Text(
+                      'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
                   ),
-                );
-              },
+                  // Navigation header with logo and close button
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Logo
+                        Image.asset(
+                          'assets/images/logo.png',
+                          height: 40,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Text(
+                              'The UNION',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF4d2963),
+                                fontFamily: 'Brush Script MT',
+                              ),
+                            );
+                          },
+                        ),
+                        // Icons
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.search, size: 24),
+                              onPressed: () {
+                                Navigator.pop(context);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Search coming soon!'),
+                                  ),
+                                );
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.person_outline, size: 24),
+                              onPressed: () {
+                                Navigator.pop(context);
+                                final authService = AuthService();
+                                if (authService.isSignedIn) {
+                                  Navigator.pushNamed(context, '/account');
+                                } else {
+                                  Navigator.pushNamed(context, '/login');
+                                }
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.shopping_bag_outlined,
+                                  size: 24),
+                              onPressed: () {
+                                Navigator.pop(context);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Shopping cart coming soon!'),
+                                  ),
+                                );
+                              },
+                            ),
+                            // Close button
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.lightBlue.shade100,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: IconButton(
+                                icon: const Icon(Icons.close, size: 24),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  // Menu Items
+                  Expanded(
+                    child: Container(
+                      color: Colors.grey.shade50,
+                      child: ListView(
+                        padding: EdgeInsets.zero,
+                        children: [
+                          _MobileMenuItem(
+                            label: 'Home',
+                            onTap: () {
+                              Navigator.pop(context);
+                              Navigator.pushNamed(context, '/');
+                            },
+                            hasChevron: false,
+                          ),
+                          const Divider(height: 1),
+                          _MobileMenuItem(
+                            label: 'Shop',
+                            onTap: () {
+                              Navigator.pop(context);
+                              Navigator.pushNamed(context, '/collections');
+                            },
+                            hasChevron: true,
+                          ),
+                          const Divider(height: 1),
+                          _MobileMenuItem(
+                            label: 'The Print Shack',
+                            onTap: () {
+                              Navigator.pop(context);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Print Shack coming soon!'),
+                                ),
+                              );
+                            },
+                            hasChevron: true,
+                          ),
+                          const Divider(height: 1),
+                          _MobileMenuItem(
+                            label: 'SALE!',
+                            onTap: () {
+                              Navigator.pop(context);
+                              Navigator.pushNamed(context, '/sale');
+                            },
+                            hasChevron: false,
+                          ),
+                          const Divider(height: 1),
+                          _MobileMenuItem(
+                            label: 'About',
+                            onTap: () {
+                              Navigator.pop(context);
+                              Navigator.pushNamed(context, '/about');
+                            },
+                            hasChevron: false,
+                          ),
+                          const Divider(height: 1),
+                          _MobileMenuItem(
+                            label: 'UPSU.net',
+                            onTap: () {
+                              Navigator.pop(context);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('External link'),
+                                ),
+                              );
+                            },
+                            hasChevron: false,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            _MobileMenuItem(
-              label: 'SALE!',
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/sale');
-              },
-              isHighlighted: true,
-            ),
-            _MobileMenuItem(
-              label: 'About',
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/about');
-              },
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(1, 0),
+            end: Offset.zero,
+          ).animate(CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeInOut,
+          )),
+          child: child,
+        );
+      },
     );
   }
 }
@@ -253,12 +404,12 @@ class _NavLinkState extends State<_NavLink> {
 class _MobileMenuItem extends StatelessWidget {
   final String label;
   final VoidCallback onTap;
-  final bool isHighlighted;
+  final bool hasChevron;
 
   const _MobileMenuItem({
     required this.label,
     required this.onTap,
-    this.isHighlighted = false,
+    this.hasChevron = false,
   });
 
   @override
@@ -266,15 +417,26 @@ class _MobileMenuItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: isHighlighted ? FontWeight.w600 : FontWeight.w500,
-            color: isHighlighted ? Colors.red : Colors.black87,
-          ),
+        color: Colors.white,
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Colors.black87,
+              ),
+            ),
+            if (hasChevron)
+              const Icon(
+                Icons.chevron_right,
+                color: Colors.black54,
+                size: 24,
+              ),
+          ],
         ),
       ),
     );
