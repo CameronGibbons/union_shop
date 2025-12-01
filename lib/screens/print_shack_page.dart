@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/utils/snackbar_utils.dart';
 
 class PrintShackPage extends StatefulWidget {
   const PrintShackPage({super.key});
@@ -282,11 +283,12 @@ class _PrintShackPageState extends State<PrintShackPage> {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Added to cart!'),
-                        backgroundColor: Colors.green,
-                      ),
+                    SnackbarUtils.showAddedToCart(
+                      context,
+                      'Personalisation',
+                      onViewCart: () {
+                        Navigator.pushNamed(context, '/cart');
+                      },
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -557,11 +559,12 @@ class _PrintShackPageState extends State<PrintShackPage> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Added to cart!'),
-                          backgroundColor: Colors.green,
-                        ),
+                      SnackbarUtils.showAddedToCart(
+                        context,
+                        'Personalisation',
+                        onViewCart: () {
+                          Navigator.pushNamed(context, '/cart');
+                        },
                       );
                     },
                     style: ElevatedButton.styleFrom(

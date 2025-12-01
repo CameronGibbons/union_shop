@@ -22,6 +22,7 @@ class _HeroCarouselState extends State<HeroCarousel> {
       buttonText: 'BROWSE COLLECTION',
       backgroundColor: Color(0xFF4d2963),
       imageUrl: 'assets/images/essential_hoodie.png',
+      route: '/collection/essential-range',
     ),
     CarouselSlide(
       title: 'The Print Shack',
@@ -30,6 +31,7 @@ class _HeroCarouselState extends State<HeroCarousel> {
       buttonText: 'FIND OUT MORE',
       backgroundColor: Color(0xFF4d2963),
       imageUrl: 'assets/images/personalization_banner.png',
+      route: '/print-shack',
     ),
     CarouselSlide(
       title: 'Hungry?',
@@ -210,6 +212,7 @@ class CarouselSlide extends StatelessWidget {
   final String buttonText;
   final Color backgroundColor;
   final String imageUrl;
+  final String? route;
 
   const CarouselSlide({
     super.key,
@@ -218,6 +221,7 @@ class CarouselSlide extends StatelessWidget {
     required this.buttonText,
     required this.backgroundColor,
     required this.imageUrl,
+    this.route,
   });
 
   @override
@@ -264,7 +268,9 @@ class CarouselSlide extends StatelessWidget {
               ),
               const SizedBox(height: 32),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: route != null
+                    ? () => Navigator.pushNamed(context, route!)
+                    : null,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: backgroundColor,
