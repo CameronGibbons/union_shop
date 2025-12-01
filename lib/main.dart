@@ -11,12 +11,15 @@ import 'package:union_shop/screens/signup_page.dart';
 import 'package:union_shop/screens/account_page.dart';
 import 'package:union_shop/screens/forgot_password_page.dart';
 import 'package:union_shop/screens/print_shack_page.dart';
+import 'package:union_shop/screens/cart_page.dart';
 import 'package:union_shop/services/auth_service.dart';
+import 'package:union_shop/services/cart_service.dart';
 import 'package:union_shop/widgets/product_card.dart';
 import 'package:union_shop/widgets/collection_card.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
 import 'package:union_shop/widgets/hero_carousel.dart';
 import 'package:union_shop/widgets/navbar.dart';
+import 'package:web/web.dart' as web;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +28,9 @@ void main() async {
     url: SupabaseConfig.supabaseUrl,
     anonKey: SupabaseConfig.supabaseAnonKey,
   );
+
+  // Initialize cart service
+  await CartService().loadCart();
 
   runApp(const UnionShopApp());
 }
@@ -73,6 +79,7 @@ class UnionShopApp extends StatelessWidget {
         '/collections': (context) => const CollectionsPage(),
         '/sale': (context) => const SaleCollectionPage(),
         '/print-shack': (context) => const PrintShackPage(),
+        '/cart': (context) => const CartPage(),
         '/login': (context) => const LoginPage(),
         '/signup': (context) => const SignupPage(),
         '/account': (context) => const AccountPage(),
@@ -484,6 +491,32 @@ class _AuthWrapperState extends State<AuthWrapper> {
   }
 
   Future<void> _checkAuthState() async {
+    // Check if this is an OAuth callback (has code parameter)
+    final currentUrl = web.window.location.href;
+    final uri = Uri.parse(currentUrl);
+    final hasCode = uri.queryParameters.containsKey('code');
+    
+    if (hasCode) {
+      // Clean up the URL by removing query parameters
+      final cleanUrl = uri.replace(queryParameters: {}).toString();
+      web.window.history.replaceState(null, '', cleanUrl);
+      
+      // Wait a bit for Supabase to process the OAuth callback
+      await Future.delayed(const Duration(milliseconds: 500));
+      
+      // Check if user is now signed in
+      try {
+        final authService = AuthService();
+        if (authService.isSignedIn && mounted) {
+          // Redirect to account page after successful OAuth login
+          Navigator.of(context).pushReplacementNamed('/account');
+          return;
+        }
+      } catch (e) {
+        // Continue to show home screen
+      }
+    }
+    
     await Future.delayed(const Duration(milliseconds: 300));
     if (mounted) {
       setState(() {
@@ -498,19 +531,6 @@ class _AuthWrapperState extends State<AuthWrapper> {
       return const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );
-    }
-
-    // Safely check auth state
-    try {
-      final authService = AuthService();
-      if (authService.isSignedIn) {
-        // User is signed in, redirect to account
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.of(context).pushReplacementNamed('/account');
-        });
-      }
-    } catch (e) {
-      // Supabase not initialized (e.g., in tests), just show home
     }
 
     return const HomeScreen();
