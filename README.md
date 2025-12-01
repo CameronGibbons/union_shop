@@ -32,7 +32,7 @@ Union Shop is a full-featured online store offering clothing, merchandise, and g
 - ✅ User login
 - ✅ Password reset flow
 - ✅ Google OAuth integration (configurable)
-- ✅ Facebook OAuth integration (configurable)
+- ✅ GitHub OAuth integration (configurable)
 - ✅ User profile management
 - ✅ Account dashboard with Orders and Profile tabs
 - ✅ Sign out functionality
@@ -109,10 +109,10 @@ This creates:
    - `http://localhost:8080/#/`
 
 #### (Optional) Configure OAuth
-For Google/Facebook login:
+For Google/GitHub login:
 1. Go to Authentication > Sign In / Providers in Supabase
-2. Enable Google or Facebook provider
-3. Get OAuth credentials from [Google Cloud Console](https://console.cloud.google.com) or [Facebook Developers](https://developers.facebook.com)
+2. Enable Google or GitHub provider
+3. Get OAuth credentials from [Google Cloud Console](https://console.cloud.google.com) or [GitHub OAuth Apps](https://github.com/settings/developers)
 4. Add redirect URI: `https://YOUR_PROJECT.supabase.co/auth/v1/callback`
 5. Enter credentials in Supabase
 
@@ -225,7 +225,7 @@ flutter test test/home_test.dart
 4. Click link and set new password
 
 #### OAuth Login
-1. Click "Continue with Google" or "Continue with Facebook"
+1. Click "Continue with Google" or "Continue with GitHub"
 2. Authorize with provider
 3. Auto-create profile → Redirect to account
 

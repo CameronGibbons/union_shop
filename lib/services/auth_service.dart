@@ -80,18 +80,18 @@ class AuthService {
     }
   }
 
-  // Sign in with Facebook (Web only for now)
-  Future<bool> signInWithFacebook() async {
+  // Sign in with GitHub (Web only for now)
+  Future<bool> signInWithGithub() async {
     try {
       await _supabase.auth.signInWithOAuth(
-        OAuthProvider.facebook,
+        OAuthProvider.github,
         redirectTo: 'http://localhost:8080/',
       );
       return true;
     } on AuthException catch (e) {
-      throw AuthException('Facebook sign in failed: ${e.message}');
+      throw AuthException('GitHub sign in failed: ${e.message}');
     } catch (e) {
-      throw AuthException('Facebook sign in failed: $e');
+      throw AuthException('GitHub sign in failed: $e');
     }
   }
 

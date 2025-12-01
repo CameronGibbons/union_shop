@@ -84,14 +84,14 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Future<void> _signInWithFacebook() async {
+  Future<void> _signInWithGithub() async {
     setState(() {
       _isLoading = true;
       _errorMessage = null;
     });
 
     try {
-      await _authService.signInWithFacebook();
+      await _authService.signInWithGithub();
     } on AuthException catch (e) {
       setState(() {
         _errorMessage = e.message;
@@ -319,11 +319,11 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 12),
 
-                  // Facebook sign in
+                  // GitHub sign in
                   SizedBox(
                     height: 50,
                     child: OutlinedButton.icon(
-                      onPressed: _isLoading ? null : _signInWithFacebook,
+                      onPressed: _isLoading ? null : _signInWithGithub,
                       style: OutlinedButton.styleFrom(
                         backgroundColor: Colors.white,
                         side: BorderSide(color: Colors.grey.shade300),
@@ -331,10 +331,10 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      icon: const Icon(Icons.facebook,
-                          size: 24, color: Colors.blue),
+                      icon:
+                          const Icon(Icons.code, size: 24, color: Colors.black),
                       label: const Text(
-                        'Continue with Facebook',
+                        'Continue with GitHub',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.black,
