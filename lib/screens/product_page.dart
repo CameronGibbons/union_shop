@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/models/product.dart';
+import 'package:union_shop/models/cart_item.dart';
 import 'package:union_shop/services/products_service.dart';
+import 'package:union_shop/services/cart_service.dart';
+import 'package:union_shop/services/auth_service.dart';
+import 'package:union_shop/utils/snackbar_utils.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
 
 class ProductPage extends StatefulWidget {
@@ -99,6 +103,43 @@ class _ProductPageState extends State<ProductPage> {
     // Placeholder for buttons that don't work yet
   }
 
+  Future<void> _addToCart() async {
+    // Validate selections
+    if (_product == null) return;
+
+    if (_product!.colors.isNotEmpty && _selectedColor == null) {
+      SnackbarUtils.showError(context, 'Please select a color');
+      return;
+    }
+
+    if (_product!.sizes.isNotEmpty && _selectedSize == null) {
+      SnackbarUtils.showError(context, 'Please select a size');
+      return;
+    }
+
+    // Create cart item
+    final cartItem = CartItem(
+      productId: _product!.id,
+      productName: _product!.name,
+      price: _product!.price,
+      quantity: _quantity,
+      color: _selectedColor,
+      size: _selectedSize,
+      imageUrl: _product!.imageUrl,
+    );
+
+    // Add to cart
+    await CartService().addToCart(cartItem);
+
+    if (mounted) {
+      SnackbarUtils.showAddedToCart(
+        context,
+        cartItem.productName,
+        onViewCart: () => Navigator.pushNamed(context, '/cart'),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -165,11 +206,18 @@ class _ProductPageState extends State<ProductPage> {
                     ),
                     IconButton(
                       icon: const Icon(Icons.person_outline, size: 24),
-                      onPressed: placeholderCallbackForButtons,
+                      onPressed: () {
+                        final authService = AuthService();
+                        if (authService.isSignedIn) {
+                          Navigator.pushNamed(context, '/account');
+                        } else {
+                          Navigator.pushNamed(context, '/login');
+                        }
+                      },
                     ),
                     IconButton(
                       icon: const Icon(Icons.shopping_bag_outlined, size: 24),
-                      onPressed: placeholderCallbackForButtons,
+                      onPressed: () => Navigator.pushNamed(context, '/cart'),
                     ),
                   ],
                 ),
@@ -560,7 +608,7 @@ class _ProductPageState extends State<ProductPage> {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: placeholderCallbackForButtons,
+        onPressed: _addToCart,
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF4d2963),
           foregroundColor: Colors.white,
