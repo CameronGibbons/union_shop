@@ -107,7 +107,8 @@ class _AccountPageState extends State<AccountPage>
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false),
+          onPressed: () => Navigator.of(context)
+              .pushNamedAndRemoveUntil('/', (route) => false),
         ),
         title: const Text(
           'My Account',
@@ -255,7 +256,7 @@ class _AccountPageState extends State<AccountPage>
               ),
             ),
             const Divider(height: 24),
-            
+
             // Order items
             ...order.items.map((item) => Padding(
                   padding: const EdgeInsets.only(bottom: 8),
@@ -331,9 +332,9 @@ class _AccountPageState extends State<AccountPage>
                     ],
                   ),
                 )),
-            
+
             const Divider(height: 24),
-            
+
             // Order totals
             Column(
               children: [
@@ -374,7 +375,7 @@ class _AccountPageState extends State<AccountPage>
                 ),
               ],
             ),
-            
+
             // Order note
             if (order.note != null && order.note!.isNotEmpty) ...[
               const Divider(height: 24),

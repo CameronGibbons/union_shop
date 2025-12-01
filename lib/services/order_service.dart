@@ -16,7 +16,8 @@ class OrderService {
     }
 
     // Calculate totals
-    final subtotal = items.fold<double>(0.0, (sum, item) => sum + item.totalPrice);
+    final subtotal =
+        items.fold<double>(0.0, (sum, item) => sum + item.totalPrice);
     final tax = subtotal * 0.20; // 20% VAT
     final total = subtotal + tax;
 
@@ -44,11 +45,8 @@ class OrderService {
       'note': note,
     };
 
-    final response = await _supabase
-        .from('orders')
-        .insert(orderData)
-        .select()
-        .single();
+    final response =
+        await _supabase.from('orders').insert(orderData).select().single();
 
     return Order.fromJson(response);
   }
@@ -92,10 +90,10 @@ class OrderService {
 
   // Update order status (for admin/testing purposes)
   Future<void> updateOrderStatus(String orderId, String status) async {
-    await _supabase
-        .from('orders')
-        .update({'status': status, 'updated_at': DateTime.now().toIso8601String()})
-        .eq('id', orderId);
+    await _supabase.from('orders').update({
+      'status': status,
+      'updated_at': DateTime.now().toIso8601String()
+    }).eq('id', orderId);
   }
 
   // Cancel an order
