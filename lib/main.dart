@@ -1,15 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:union_shop/config/supabase_config.dart';
 import 'package:union_shop/screens/product_page.dart';
 import 'package:union_shop/screens/about_page.dart';
 import 'package:union_shop/screens/collections_page.dart';
 import 'package:union_shop/screens/collection_detail_page.dart';
 import 'package:union_shop/screens/sale_collection_page.dart';
+import 'package:union_shop/screens/login_page.dart';
+import 'package:union_shop/screens/signup_page.dart';
+import 'package:union_shop/screens/account_page.dart';
+import 'package:union_shop/screens/forgot_password_page.dart';
+import 'package:union_shop/services/auth_service.dart';
 import 'package:union_shop/widgets/product_card.dart';
 import 'package:union_shop/widgets/collection_card.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
 import 'package:union_shop/widgets/hero_carousel.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(
+    url: SupabaseConfig.supabaseUrl,
+    anonKey: SupabaseConfig.supabaseAnonKey,
+  );
+
   runApp(const UnionShopApp());
 }
 
@@ -24,7 +38,7 @@ class UnionShopApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
       ),
-      home: const HomeScreen(),
+      home: const AuthWrapper(),
       initialRoute: '/',
       onGenerateRoute: (settings) {
         // Handle dynamic collection routes
@@ -56,6 +70,10 @@ class UnionShopApp extends StatelessWidget {
         '/about': (context) => const AboutPage(),
         '/collections': (context) => const CollectionsPage(),
         '/sale': (context) => const SaleCollectionPage(),
+        '/login': (context) => const LoginPage(),
+        '/signup': (context) => const SignupPage(),
+        '/account': (context) => const AccountPage(),
+        '/forgot-password': (context) => const ForgotPasswordPage(),
       },
     );
   }
@@ -160,7 +178,14 @@ class HomeScreen extends StatelessWidget {
                     ),
                     IconButton(
                       icon: const Icon(Icons.person_outline, size: 24),
-                      onPressed: placeholderCallbackForButtons,
+                      onPressed: () {
+                        final authService = AuthService();
+                        if (authService.isSignedIn) {
+                          Navigator.pushNamed(context, '/account');
+                        } else {
+                          Navigator.pushNamed(context, '/login');
+                        }
+                      },
                     ),
                     IconButton(
                       icon: const Icon(Icons.shopping_bag_outlined, size: 24),
@@ -505,5 +530,56 @@ class HomeScreen extends StatelessWidget {
   // Footer Placeholder
   Widget _buildFooter(BuildContext context) {
     return const FooterWidget();
+  }
+}
+
+// Auth wrapper to handle OAuth redirects
+class AuthWrapper extends StatefulWidget {
+  const AuthWrapper({super.key});
+
+  @override
+  State<AuthWrapper> createState() => _AuthWrapperState();
+}
+
+class _AuthWrapperState extends State<AuthWrapper> {
+  bool _isChecking = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkAuthState();
+  }
+
+  Future<void> _checkAuthState() async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    if (mounted) {
+      setState(() {
+        _isChecking = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_isChecking) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    // Safely check auth state
+    try {
+      final authService = AuthService();
+      if (authService.isSignedIn) {
+        // User is signed in, redirect to account
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.of(context).pushReplacementNamed('/account');
+        });
+      }
+    } catch (e) {
+      // Supabase not initialized (e.g., in tests), just show home
+    }
+
+    return const HomeScreen();
   }
 }
