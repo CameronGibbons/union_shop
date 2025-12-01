@@ -3,6 +3,7 @@ import 'package:union_shop/screens/product_page.dart';
 import 'package:union_shop/screens/about_page.dart';
 import 'package:union_shop/screens/collections_page.dart';
 import 'package:union_shop/screens/collection_detail_page.dart';
+import 'package:union_shop/screens/sale_collection_page.dart';
 import 'package:union_shop/widgets/product_card.dart';
 import 'package:union_shop/widgets/collection_card.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
@@ -54,6 +55,7 @@ class UnionShopApp extends StatelessWidget {
             const ProductPage(productId: 'classic-sweatshirt'),
         '/about': (context) => const AboutPage(),
         '/collections': (context) => const CollectionsPage(),
+        '/sale': (context) => const SaleCollectionPage(),
       },
     );
   }
