@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/models/product.dart';
 import 'package:union_shop/services/products_service.dart';
+import 'package:union_shop/services/auth_service.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
 import 'package:union_shop/widgets/product_card.dart';
 
@@ -200,11 +201,18 @@ class _SaleCollectionPageState extends State<SaleCollectionPage> {
                     ),
                     IconButton(
                       icon: const Icon(Icons.person_outline, size: 24),
-                      onPressed: placeholderCallbackForButtons,
+                      onPressed: () {
+                        final authService = AuthService();
+                        if (authService.isSignedIn) {
+                          Navigator.pushNamed(context, '/account');
+                        } else {
+                          Navigator.pushNamed(context, '/login');
+                        }
+                      },
                     ),
                     IconButton(
                       icon: const Icon(Icons.shopping_bag_outlined, size: 24),
-                      onPressed: placeholderCallbackForButtons,
+                      onPressed: () => Navigator.pushNamed(context, '/cart'),
                     ),
                     IconButton(
                       icon: const Icon(Icons.menu, size: 24),
