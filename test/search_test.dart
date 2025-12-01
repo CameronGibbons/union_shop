@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/services/search_service.dart';
-import 'package:union_shop/models/product.dart';
 
 void main() {
   group('SearchService', () {
