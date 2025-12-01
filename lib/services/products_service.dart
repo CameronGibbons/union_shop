@@ -197,6 +197,16 @@ class ProductsService {
     return List.from(_products);
   }
 
+  // Get product by ID
+  Future<Product?> getProductById(String id) async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    try {
+      return _products.firstWhere((p) => p.id == id);
+    } catch (e) {
+      return null;
+    }
+  }
+
   // Filter products
   Future<List<Product>> filterProducts({
     String? collectionId,
