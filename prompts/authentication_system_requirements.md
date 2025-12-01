@@ -1,7 +1,7 @@
 # Authentication System Requirements
 
 ## Overview
-Implement a full user authentication and account management system using Supabase (PostgreSQL database) with support for email/password authentication and social login (Google, Facebook, Shop.app). This system includes user registration, login, account dashboard, and session management.
+Implement a full user authentication and account management system using Supabase (PostgreSQL database) with support for email/password authentication and social login (Google, GitHub). This system includes user registration, login, account dashboard, and session management with instant signup (no email verification required).
 
 ## Reference
 - Live Example: https://shop.upsu.net/account (authentication flow)
@@ -14,9 +14,10 @@ Before implementing this feature, you must have:
 1. ✅ Existing Flutter web application structure
 2. ✅ Navigation system in place
 3. ✅ Header with account icon button
-4. ⚠️ Supabase account (to be created)
-5. ⚠️ Google OAuth credentials (to be configured)
-6. ⚠️ Facebook OAuth credentials (to be configured)
+4. ✅ Supabase account configured
+5. ✅ Email confirmation disabled in Supabase
+6. ⚠️ Google OAuth credentials (optional)
+7. ⚠️ GitHub OAuth credentials (optional)
 
 ## External Service Requirements
 
@@ -101,18 +102,12 @@ CREATE TRIGGER on_auth_user_created
 6. Copy Client ID and Client Secret
 7. Add to Supabase Dashboard → Authentication → Providers → Google
 
-**Facebook OAuth:**
-1. Go to Facebook Developers (developers.facebook.com)
-2. Create new app or select existing
-3. Add Facebook Login product
-4. Configure OAuth redirect URIs: `https://[PROJECT_ID].supabase.co/auth/v1/callback`
-5. Copy App ID and App Secret
-6. Add to Supabase Dashboard → Authentication → Providers → Facebook
-
-**Shop.app OAuth:**
-- For now, implement as "Email Sign In" with shop branding
-- Shop.app uses Shopify's authentication system
-- Full implementation requires Shopify App setup (optional)
+**GitHub OAuth:**
+1. Go to GitHub Settings → Developer settings → OAuth Apps
+2. Create new OAuth App
+3. Set Authorization callback URL: `https://[PROJECT_ID].supabase.co/auth/v1/callback`
+4. Copy Client ID and Client Secret
+5. Add to Supabase Dashboard → Authentication → Providers → GitHub
 
 **4. Email Templates (Optional):**
 - Customize email confirmation template
@@ -120,10 +115,10 @@ CREATE TRIGGER on_auth_user_created
 - Add UPSU branding
 
 **5. Security Settings:**
-- Enable email confirmation (production)
-- Disable for development/testing
+- **Disable email confirmation** (allows instant signup)
 - Configure JWT expiry (default: 1 hour)
 - Configure session refresh (default: 7 days)
+- Enable RLS policies on all tables
 
 ## Flutter Dependencies
 

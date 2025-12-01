@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:union_shop/models/user.dart';
 
@@ -177,8 +178,9 @@ class AuthService {
         'created_at': DateTime.now().toIso8601String(),
       });
     } catch (e) {
-      // Log error but don't throw - profile creation can be retried later
-      print('Error creating profile: $e');
+      // Silently handle error - profile creation can be retried later
+      // ignore: avoid_print
+      debugPrint('Error creating profile: $e');
     }
   }
 

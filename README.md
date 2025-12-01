@@ -31,14 +31,15 @@ Union Shop is a full-featured online store offering clothing, merchandise, and g
 - ✅ User signup with validation
 - ✅ User login
 - ✅ Password reset flow
-- ✅ Google OAuth integration (configurable)
-- ✅ GitHub OAuth integration (configurable)
-- ✅ User profile management
+- ✅ Google OAuth integration
+- ✅ GitHub OAuth integration
+- ✅ User profile management (auto-created on signup)
 - ✅ Account dashboard with Orders and Profile tabs
 - ✅ Sign out functionality
 - ✅ Account deletion
 - ✅ Secure session management with JWT tokens
 - ✅ Row Level Security (RLS) with Supabase
+- ✅ No email verification required (instant signup)
 
 ## 🛠️ Tech Stack
 
@@ -103,8 +104,9 @@ This creates:
 #### Configure Authentication
 1. Go to Authentication > Providers
 2. Enable "Email" provider
-3. Set Site URL: `http://localhost:8080`
-4. Add Redirect URLs:
+3. **Disable "Confirm email"** (allows instant signup without email verification)
+4. Set Site URL: `http://localhost:8080`
+5. Add Redirect URLs:
    - `http://localhost:8080`
    - `http://localhost:8080/#/`
 
