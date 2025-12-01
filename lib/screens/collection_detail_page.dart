@@ -444,31 +444,40 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      child: GridView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 12,
-          childAspectRatio: 0.7,
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1400),
+          child: GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: MediaQuery.of(context).size.width > 1200
+                  ? 4
+                  : MediaQuery.of(context).size.width > 768
+                      ? 3
+                      : 2,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              childAspectRatio: 0.7,
+            ),
+            itemCount: _displayedProducts.length,
+            itemBuilder: (context, index) {
+              final product = _displayedProducts[index];
+              return ProductCard(
+                title: product.name,
+                price: product.isOnSale
+                    ? '£${product.salePrice!.toStringAsFixed(2)}'
+                    : '£${product.price.toStringAsFixed(2)}',
+                imageUrl: product.imageUrl,
+                originalPrice: product.isOnSale
+                    ? '£${product.price.toStringAsFixed(2)}'
+                    : null,
+                productId: product.id,
+                isSoldOut: !product.isInStock,
+              );
+            },
+          ),
         ),
-        itemCount: _displayedProducts.length,
-        itemBuilder: (context, index) {
-          final product = _displayedProducts[index];
-          return ProductCard(
-            title: product.name,
-            price: product.isOnSale
-                ? '£${product.salePrice!.toStringAsFixed(2)}'
-                : '£${product.price.toStringAsFixed(2)}',
-            imageUrl: product.imageUrl,
-            originalPrice: product.isOnSale
-                ? '£${product.price.toStringAsFixed(2)}'
-                : null,
-            productId: product.id,
-            isSoldOut: !product.isInStock,
-          );
-        },
       ),
     );
   }
