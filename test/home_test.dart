@@ -163,7 +163,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Verify navigation to product page by checking for product page content
-      expect(find.text('Placeholder Product Name'), findsOneWidget);
+      expect(
+          find.text('Limited Edition Essential Zip Hoodies'), findsOneWidget);
     });
 
     testWidgets('should have scrollable content', (tester) async {
