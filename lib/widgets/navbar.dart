@@ -99,12 +99,7 @@ class Navbar extends StatelessWidget {
                     IconButton(
                       icon: const Icon(Icons.search, size: 24),
                       onPressed: () {
-                        // TODO: Implement search
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Search coming soon!'),
-                          ),
-                        );
+                        Navigator.pushNamed(context, '/search');
                       },
                     ),
                     IconButton(
@@ -243,11 +238,7 @@ class Navbar extends StatelessWidget {
                               icon: const Icon(Icons.search, size: 24),
                               onPressed: () {
                                 Navigator.pop(context);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Search coming soon!'),
-                                  ),
-                                );
+                                Navigator.pushNamed(context, '/search');
                               },
                             ),
                             IconButton(
