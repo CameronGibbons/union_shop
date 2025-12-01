@@ -15,6 +15,7 @@ import 'package:union_shop/widgets/product_card.dart';
 import 'package:union_shop/widgets/collection_card.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
 import 'package:union_shop/widgets/hero_carousel.dart';
+import 'package:union_shop/widgets/navbar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -101,7 +102,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             // Header with announcement bar and navigation
-            _buildHeader(context),
+            const Navbar(),
 
             // Hero Carousel/Slideshow Section
             _buildHeroCarousel(),
@@ -125,78 +126,6 @@ class HomeScreen extends StatelessWidget {
             _buildFooter(context),
           ],
         ),
-      ),
-    );
-  }
-
-  // Header with announcement bar and main navigation
-  Widget _buildHeader(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          // Announcement Bar
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            color: const Color(0xFF4d2963),
-            child: const Text(
-              'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.5,
-              ),
-            ),
-          ),
-          // Main Navigation
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // Logo
-                GestureDetector(
-                  onTap: () => navigateToHome(context),
-                  child: const Text(
-                    'upsu-store',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF4d2963),
-                    ),
-                  ),
-                ),
-                // Navigation Icons
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.search, size: 24),
-                      onPressed: placeholderCallbackForButtons,
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.person_outline, size: 24),
-                      onPressed: () {
-                        final authService = AuthService();
-                        if (authService.isSignedIn) {
-                          Navigator.pushNamed(context, '/account');
-                        } else {
-                          Navigator.pushNamed(context, '/login');
-                        }
-                      },
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.shopping_bag_outlined, size: 24),
-                      onPressed: placeholderCallbackForButtons,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }
