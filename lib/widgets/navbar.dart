@@ -272,11 +272,7 @@ class Navbar extends StatelessWidget {
                                   size: 24),
                               onPressed: () {
                                 Navigator.pop(context);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Shopping cart coming soon!'),
-                                  ),
-                                );
+                                Navigator.pushNamed(context, '/cart');
                               },
                             ),
                             // Close button
@@ -343,19 +339,6 @@ class Navbar extends StatelessWidget {
                             onTap: () {
                               Navigator.pop(context);
                               Navigator.pushNamed(context, '/about');
-                            },
-                            hasChevron: false,
-                          ),
-                          const Divider(height: 1),
-                          _MobileMenuItem(
-                            label: 'UPSU.net',
-                            onTap: () {
-                              Navigator.pop(context);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('External link'),
-                                ),
-                              );
                             },
                             hasChevron: false,
                           ),
