@@ -660,14 +660,30 @@ class _CartPageState extends State<CartPage> {
                             item.color != null &&
                             item.color!.isNotEmpty) ...[
                           const SizedBox(height: 4),
-                          Text(
-                            'Personalisation Line 1: ${item.color}',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.black87,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
+                          ...() {
+                            final lines = item.color!.split(' / ');
+                            return [
+                              Text(
+                                'Personalisation Line 1: ${lines[0]}',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black87,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                              if (lines.length > 1) ...[
+                                const SizedBox(height: 4),
+                                Text(
+                                  'Personalisation Line 2: ${lines[1]}',
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black87,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                              ],
+                            ];
+                          }(),
                         ],
                         const SizedBox(height: 8),
                         TextButton(
@@ -779,14 +795,30 @@ class _CartPageState extends State<CartPage> {
                         item.color != null &&
                         item.color!.isNotEmpty) ...[
                       const SizedBox(height: 4),
-                      Text(
-                        'Personalisation Line 1: ${item.color}',
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.black87,
-                          fontStyle: FontStyle.italic,
-                        ),
-                      ),
+                      ...() {
+                        final lines = item.color!.split(' / ');
+                        return [
+                          Text(
+                            'Personalisation Line 1: ${lines[0]}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black87,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                          if (lines.length > 1) ...[
+                            const SizedBox(height: 4),
+                            Text(
+                              'Personalisation Line 2: ${lines[1]}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.black87,
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ],
+                        ];
+                      }(),
                     ],
                     const SizedBox(height: 8),
                     Text(
