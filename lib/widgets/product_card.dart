@@ -80,15 +80,17 @@ class ProductCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             // Product Title
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: isSoldOut ? Colors.grey : Colors.black87,
+            Flexible(
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: isSoldOut ? Colors.grey : Colors.black87,
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 4),
             // Product Price or Sold Out
