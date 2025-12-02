@@ -15,7 +15,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(
-        find.text('upsu-store'),
+        find.byType(Image),
         findsAtLeastNWidgets(1),
       );
     });
@@ -172,12 +172,12 @@ void main() {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
-      final logoFinder = find.text('upsu-store').first;
+      final logoFinder = find.byType(Image).first;
       await tester.tap(logoFinder);
       await tester.pumpAndSettle();
 
       // After navigation, should be on home screen
-      expect(find.text('upsu-store'), findsWidgets);
+      expect(find.byType(Image), findsWidgets);
     });
 
     testWidgetsWithLargeViewport('should reset to page 1 when filter changes', (tester) async {

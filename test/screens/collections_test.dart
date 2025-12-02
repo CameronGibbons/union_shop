@@ -21,7 +21,7 @@ void main() {
       );
 
       // Check logo
-      expect(find.text('upsu-store'), findsOneWidget);
+      expect(find.byType(Image), findsWidgets);
 
       // Check navigation icons
       expect(find.byIcon(Icons.search), findsOneWidget);

@@ -24,7 +24,7 @@ void main() {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
-      expect(find.text('upsu-store'), findsOneWidget);
+      expect(find.byType(Image), findsWidgets);
       expect(find.text('Classic Sweatshirts'), findsOneWidget);
       expect(find.text('£23.00'), findsOneWidget);
       expect(find.text('Tax included.'), findsOneWidget);

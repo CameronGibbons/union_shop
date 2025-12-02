@@ -89,7 +89,7 @@ void main() {
       );
 
       // AboutPage uses Navbar instead of AppBar with back button
-      expect(find.text('upsu-store'), findsOneWidget);
+      expect(find.byType(Image), findsWidgets);
     });
 
     testWidgetsWithLargeViewport('should be scrollable', (tester) async {

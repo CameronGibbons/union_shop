@@ -145,8 +145,8 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      // Find logo text
-      final logo = find.text('upsu-store');
+      // Find logo image
+      final logo = find.byType(Image).first;
       expect(logo, findsOneWidget);
 
       // Tap logo - should trigger navigateToHome but with MaterialApp wrapper
