@@ -20,6 +20,10 @@ class CartItem {
   double get totalPrice => price * quantity;
 
   String get variantDescription {
+    // Don't show color/size for personalisation items
+    if (productId == 'personalisation') {
+      return '';
+    }
     final parts = <String>[];
     if (color != null && color!.isNotEmpty) {
       parts.add('Color: $color');
