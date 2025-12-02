@@ -3,6 +3,7 @@ import 'package:union_shop/services/auth_service.dart';
 import 'package:union_shop/services/order_service.dart';
 import 'package:union_shop/models/user.dart';
 import 'package:union_shop/models/order.dart';
+import 'package:union_shop/widgets/navbar.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -102,50 +103,35 @@ class _AccountPageState extends State<AccountPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F3),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context)
-              .pushNamedAndRemoveUntil('/', (route) => false),
-        ),
-        title: const Text(
-          'My Account',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout, color: Colors.black),
-            onPressed: _signOut,
-            tooltip: 'Sign Out',
-          ),
-        ],
-        bottom: TabBar(
-          controller: _tabController,
-          labelColor: Colors.black,
-          unselectedLabelColor: Colors.grey,
-          indicatorColor: const Color(0xFF4d2963),
-          tabs: const [
-            Tab(text: 'Orders'),
-            Tab(text: 'Profile'),
-          ],
-        ),
-      ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : TabBarView(
+      body: Column(
+        children: [
+          const Navbar(),
+          Container(
+            color: Colors.white,
+            child: TabBar(
               controller: _tabController,
-              children: [
-                _buildOrdersTab(),
-                _buildProfileTab(),
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey,
+              indicatorColor: const Color(0xFF4d2963),
+              tabs: const [
+                Tab(text: 'Orders'),
+                Tab(text: 'Profile'),
               ],
             ),
+          ),
+          Expanded(
+            child: _isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : TabBarView(
+                    controller: _tabController,
+                    children: [
+                      _buildOrdersTab(),
+                      _buildProfileTab(),
+                    ],
+                  ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -571,6 +557,12 @@ class _AccountPageState extends State<AccountPage>
               title: 'Delete Account',
               onTap: _deleteAccount,
               textColor: Colors.red,
+            ),
+            const SizedBox(height: 12),
+            _buildActionButton(
+              icon: Icons.logout,
+              title: 'Sign Out',
+              onTap: _signOut,
             ),
           ],
         ),
