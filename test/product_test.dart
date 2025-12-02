@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/screens/product_page.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
+import 'test_helpers.dart';
 
 void main() {
   group('Product Page Tests', () {
     Widget createTestWidget() {
-      return const MaterialApp(
-          home: ProductPage(productId: 'classic-sweatshirt'));
+      return createTestApp(const ProductPage(productId: 'classic-sweatshirt'));
     }
 
-    testWidgets('should display loading indicator initially', (tester) async {
+    testWidgetsWithLargeViewport('should display loading indicator initially', (tester) async {      
       await tester.pumpWidget(createTestWidget());
       await tester.pump();
 
@@ -19,7 +19,7 @@ void main() {
       await tester.pumpAndSettle();
     });
 
-    testWidgets('should display product page with basic elements',
+    testWidgetsWithLargeViewport('should display product page with basic elements',
         (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
@@ -30,7 +30,7 @@ void main() {
       expect(find.text('Tax included.'), findsOneWidget);
     });
 
-    testWidgets('should display color dropdown', (tester) async {
+    testWidgetsWithLargeViewport('should display color dropdown', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -38,7 +38,7 @@ void main() {
       expect(find.byType(DropdownButton<String>), findsAtLeastNWidgets(1));
     });
 
-    testWidgets('should display size dropdown', (tester) async {
+    testWidgetsWithLargeViewport('should display size dropdown', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -46,7 +46,7 @@ void main() {
       expect(find.byType(DropdownButton<String>), findsAtLeastNWidgets(2));
     });
 
-    testWidgets('should display quantity counter', (tester) async {
+    testWidgetsWithLargeViewport('should display quantity counter', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -56,7 +56,7 @@ void main() {
       expect(find.byIcon(Icons.remove), findsOneWidget);
     });
 
-    testWidgets('should increment quantity when plus button is tapped',
+    testWidgetsWithLargeViewport('should increment quantity when plus button is tapped',
         (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
@@ -75,7 +75,7 @@ void main() {
       expect(find.text('2'), findsOneWidget);
     });
 
-    testWidgets('should decrement quantity when minus button is tapped',
+    testWidgetsWithLargeViewport('should decrement quantity when minus button is tapped',
         (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
@@ -91,7 +91,7 @@ void main() {
       expect(find.text('1'), findsOneWidget);
     });
 
-    testWidgets('should not decrement quantity below 1', (tester) async {
+    testWidgetsWithLargeViewport('should not decrement quantity below 1', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -104,7 +104,7 @@ void main() {
       expect(find.text('1'), findsOneWidget);
     });
 
-    testWidgets('should have color dropdown with selectable options',
+    testWidgetsWithLargeViewport('should have color dropdown with selectable options',
         (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
@@ -119,7 +119,7 @@ void main() {
       expect(find.text('Green'), findsOneWidget);
     });
 
-    testWidgets('should display ADD TO CART button', (tester) async {
+    testWidgetsWithLargeViewport('should display ADD TO CART button', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -127,7 +127,7 @@ void main() {
       expect(find.byType(ElevatedButton), findsAtLeastNWidgets(1));
     });
 
-    testWidgets('should display header icons', (tester) async {
+    testWidgetsWithLargeViewport('should display header icons', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -136,21 +136,21 @@ void main() {
       expect(find.byIcon(Icons.shopping_bag_outlined), findsOneWidget);
     });
 
-    testWidgets('should display footer', (tester) async {
+    testWidgetsWithLargeViewport('should display footer', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
       expect(find.byType(FooterWidget), findsOneWidget);
     });
 
-    testWidgets('should display back button', (tester) async {
+    testWidgetsWithLargeViewport('should display back button', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
       expect(find.text('BACK TO AUTUMN FAVOURITES'), findsOneWidget);
     });
 
-    testWidgets('should display image carousel navigation', (tester) async {
+    testWidgetsWithLargeViewport('should display image carousel navigation', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -158,7 +158,7 @@ void main() {
       expect(find.byIcon(Icons.chevron_right), findsOneWidget);
     });
 
-    testWidgets('should display product description', (tester) async {
+    testWidgetsWithLargeViewport('should display product description', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 

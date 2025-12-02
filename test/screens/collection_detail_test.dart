@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/screens/collection_detail_page.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
+import '../test_helpers.dart';
 
 void main() {
   group('Collection Detail Page Tests', () {
     Widget createTestWidget() {
-      return const MaterialApp(
-        home: CollectionDetailPage(collectionId: 'autumn-favourites'),
-      );
+      return createTestApp(const CollectionDetailPage(collectionId: 'autumn-favourites'));
     }
 
-    testWidgets('should display page title', (tester) async {
+    testWidgetsWithLargeViewport('should display page title', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -21,7 +20,7 @@ void main() {
       );
     });
 
-    testWidgets('should display loading indicator initially', (tester) async {
+    testWidgetsWithLargeViewport('should display loading indicator initially', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pump();
 
@@ -30,14 +29,14 @@ void main() {
       await tester.pumpAndSettle();
     });
 
-    testWidgets('should display collection name after loading', (tester) async {
+    testWidgetsWithLargeViewport('should display collection name after loading', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
       expect(find.text('Autumn Favourites'), findsOneWidget);
     });
 
-    testWidgets('should display collection description', (tester) async {
+    testWidgetsWithLargeViewport('should display collection description', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -45,7 +44,7 @@ void main() {
           find.text('Cozy essentials for the autumn season'), findsOneWidget);
     });
 
-    testWidgets('should display filter dropdown', (tester) async {
+    testWidgetsWithLargeViewport('should display filter dropdown', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -53,7 +52,7 @@ void main() {
       expect(find.text('All products'), findsOneWidget);
     });
 
-    testWidgets('should display sort dropdown', (tester) async {
+    testWidgetsWithLargeViewport('should display sort dropdown', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -61,21 +60,21 @@ void main() {
       expect(find.text('Featured'), findsOneWidget);
     });
 
-    testWidgets('should display product count', (tester) async {
+    testWidgetsWithLargeViewport('should display product count', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
       expect(find.text('10 products'), findsOneWidget);
     });
 
-    testWidgets('should display product grid', (tester) async {
+    testWidgetsWithLargeViewport('should display product grid', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
       expect(find.byType(GridView), findsOneWidget);
     });
 
-    testWidgets('should display products from collection', (tester) async {
+    testWidgetsWithLargeViewport('should display products from collection', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -84,7 +83,7 @@ void main() {
       expect(find.text('Classic Hoodies'), findsOneWidget);
     });
 
-    testWidgets('should filter products by category', (tester) async {
+    testWidgetsWithLargeViewport('should filter products by category', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -103,7 +102,7 @@ void main() {
       expect(find.text('Classic Hoodies'), findsOneWidget);
     });
 
-    testWidgets('should sort products by price low to high', (tester) async {
+    testWidgetsWithLargeViewport('should sort products by price low to high', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -120,7 +119,7 @@ void main() {
       expect(find.text('Price: Low to High'), findsOneWidget);
     });
 
-    testWidgets('should sort products by price high to low', (tester) async {
+    testWidgetsWithLargeViewport('should sort products by price high to low', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -134,7 +133,7 @@ void main() {
       expect(find.text('Price: High to Low'), findsOneWidget);
     });
 
-    testWidgets('should sort products alphabetically A-Z', (tester) async {
+    testWidgetsWithLargeViewport('should sort products alphabetically A-Z', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -148,7 +147,7 @@ void main() {
       expect(find.text('Alphabetically, A-Z'), findsOneWidget);
     });
 
-    testWidgets('should sort products alphabetically Z-A', (tester) async {
+    testWidgetsWithLargeViewport('should sort products alphabetically Z-A', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -162,14 +161,14 @@ void main() {
       expect(find.text('Alphabetically, Z-A'), findsOneWidget);
     });
 
-    testWidgets('should display footer', (tester) async {
+    testWidgetsWithLargeViewport('should display footer', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
       expect(find.byType(FooterWidget), findsOneWidget);
     });
 
-    testWidgets('should navigate to home when logo is clicked', (tester) async {
+    testWidgetsWithLargeViewport('should navigate to home when logo is clicked', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -181,7 +180,7 @@ void main() {
       expect(find.text('upsu-store'), findsWidgets);
     });
 
-    testWidgets('should reset to page 1 when filter changes', (tester) async {
+    testWidgetsWithLargeViewport('should reset to page 1 when filter changes', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -197,7 +196,7 @@ void main() {
       expect(find.text('Accessories'), findsOneWidget);
     });
 
-    testWidgets('should show sale price for discounted items', (tester) async {
+    testWidgetsWithLargeViewport('should show sale price for discounted items', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -205,7 +204,7 @@ void main() {
       expect(find.text('Classic Sweatshirts - Neutral'), findsOneWidget);
     });
 
-    testWidgets('should show sold out status for out of stock items',
+    testWidgetsWithLargeViewport('should show sold out status for out of stock items',
         (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
@@ -214,7 +213,7 @@ void main() {
       expect(find.text('A5 Notepad'), findsOneWidget);
     });
 
-    testWidgets('should handle empty collection gracefully', (tester) async {
+    testWidgetsWithLargeViewport('should handle empty collection gracefully', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: CollectionDetailPage(collectionId: 'empty-collection'),
@@ -225,7 +224,7 @@ void main() {
       expect(find.text('No products found'), findsOneWidget);
     });
 
-    testWidgets('should display announcement bar', (tester) async {
+    testWidgetsWithLargeViewport('should display announcement bar', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
@@ -235,7 +234,7 @@ void main() {
       );
     });
 
-    testWidgets('should display header icons', (tester) async {
+    testWidgetsWithLargeViewport('should display header icons', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 

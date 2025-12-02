@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/screens/collections_page.dart';
+import '../test_helpers.dart';
 
 void main() {
   group('Collections Page Tests', () {
     Widget createTestWidget() {
-      return const MaterialApp(home: CollectionsPage());
+      return createTestApp(const CollectionsPage());
     }
 
-    testWidgets('should display header with announcement bar', (tester) async {
+    testWidgetsWithLargeViewport('should display header with announcement bar', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle(); // Wait for async loading
 
@@ -28,7 +29,7 @@ void main() {
       expect(find.byIcon(Icons.shopping_bag_outlined), findsOneWidget);
     });
 
-    testWidgets('should display page title', (tester) async {
+    testWidgetsWithLargeViewport('should display page title', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle(); // Wait for async loading
 
@@ -38,7 +39,7 @@ void main() {
       );
     });
 
-    testWidgets('should display loading indicator initially', (tester) async {
+    testWidgetsWithLargeViewport('should display loading indicator initially', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pump(); // Don't wait for loading to complete
 
@@ -49,7 +50,7 @@ void main() {
       await tester.pumpAndSettle();
     });
 
-    testWidgets('should display all collection links', (tester) async {
+    testWidgetsWithLargeViewport('should display all collection links', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle(); // Wait for async loading
 
@@ -62,7 +63,7 @@ void main() {
       expect(find.text('SALE'), findsOneWidget);
     });
 
-    testWidgets('should display seasonal collections', (tester) async {
+    testWidgetsWithLargeViewport('should display seasonal collections', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle(); // Wait for async loading
 
@@ -72,7 +73,7 @@ void main() {
       expect(find.text('Summer Favourites'), findsOneWidget);
     });
 
-    testWidgets('should display special collections', (tester) async {
+    testWidgetsWithLargeViewport('should display special collections', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle(); // Wait for async loading
 
@@ -81,7 +82,7 @@ void main() {
       expect(find.text('UPSU Bears'), findsOneWidget);
     });
 
-    testWidgets('should have scrollable content', (tester) async {
+    testWidgetsWithLargeViewport('should have scrollable content', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle(); // Wait for async loading
 
@@ -89,7 +90,7 @@ void main() {
       expect(find.byType(SingleChildScrollView), findsOneWidget);
     });
 
-    testWidgets('should display footer', (tester) async {
+    testWidgetsWithLargeViewport('should display footer', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle(); // Wait for async loading
 
@@ -102,7 +103,7 @@ void main() {
       expect(find.text('UPSU SHOP'), findsOneWidget);
     });
 
-    testWidgets('collections should be tappable', (tester) async {
+    testWidgetsWithLargeViewport('collections should be tappable', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle(); // Wait for async loading
 
@@ -118,7 +119,7 @@ void main() {
       expect(gestureDetector, findsOneWidget);
     });
 
-    testWidgets('should display collections in a grid layout', (tester) async {
+    testWidgetsWithLargeViewport('should display collections in a grid layout', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle(); // Wait for async loading
 
@@ -126,7 +127,7 @@ void main() {
       expect(find.byType(GridView), findsOneWidget);
     });
 
-    testWidgets('should display collection cards with images', (tester) async {
+    testWidgetsWithLargeViewport('should display collection cards with images', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle(); // Wait for async loading
 
