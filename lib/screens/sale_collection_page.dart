@@ -197,7 +197,7 @@ class _SaleCollectionPageState extends State<SaleCollectionPage> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.search, size: 24),
-                      onPressed: placeholderCallbackForButtons,
+                      onPressed: () => Navigator.pushNamed(context, '/search'),
                     ),
                     IconButton(
                       icon: const Icon(Icons.person_outline, size: 24),
