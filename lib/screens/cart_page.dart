@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/constants/app_colors.dart';
 import 'package:union_shop/models/cart_item.dart';
 import 'package:union_shop/services/cart_service.dart';
 import 'package:union_shop/services/auth_service.dart';
@@ -41,7 +42,7 @@ class _CartPageState extends State<CartPage> {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF4d2963),
+                backgroundColor: AppColors.primary,
                 foregroundColor: Colors.white,
               ),
               onPressed: () {
@@ -116,7 +117,7 @@ class _CartPageState extends State<CartPage> {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF4d2963),
+                backgroundColor: AppColors.primary,
                 foregroundColor: Colors.white,
               ),
               onPressed: () {
@@ -201,7 +202,7 @@ class _CartPageState extends State<CartPage> {
             ElevatedButton(
               onPressed: () => Navigator.pushNamed(context, '/collections'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF4d2963),
+                backgroundColor: AppColors.primary,
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 32,
@@ -319,7 +320,7 @@ class _CartPageState extends State<CartPage> {
               child: ElevatedButton(
                 onPressed: _handleCheckout,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF4d2963),
+                  backgroundColor: AppColors.primary,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
@@ -519,7 +520,7 @@ class _CartPageState extends State<CartPage> {
                       ElevatedButton(
                         onPressed: _handleCheckout,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF4d2963),
+                          backgroundColor: AppColors.primary,
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(
                             horizontal: 48,

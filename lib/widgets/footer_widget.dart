@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/constants/app_colors.dart';
 
 class FooterWidget extends StatelessWidget {
   const FooterWidget({super.key});
@@ -7,7 +8,7 @@ class FooterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: const Color(0xFF2c2c2c),
+      color: AppColors.secondary,
       padding: const EdgeInsets.all(24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,20 +149,7 @@ class FooterWidget extends StatelessWidget {
           ...links.map((link) => Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: GestureDetector(
-                  onTap: () {
-                    // Navigate for all links
-                    if (link.route == '/') {
-                      Navigator.pushNamed(context, '/');
-                    } else if (link.route == '/about') {
-                      Navigator.pushNamed(context, '/about');
-                    } else if (link.route == '/collections') {
-                      Navigator.pushNamed(context, '/collections');
-                    } else if (link.route == '/sale') {
-                      Navigator.pushNamed(context, '/sale');
-                    } else if (link.route == '/search') {
-                      Navigator.pushNamed(context, '/search');
-                    }
-                  },
+                  onTap: () => Navigator.pushNamed(context, link.route),
                   child: Text(
                     link.title,
                     style: const TextStyle(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/constants/app_colors.dart';
 import 'package:union_shop/widgets/navbar.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
 import 'package:union_shop/utils/snackbar_utils.dart';
@@ -95,7 +96,7 @@ class _PrintShackPageState extends State<PrintShackPage> {
                       style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF4d2963),
+                        color: AppColors.primary,
                       ),
                     ),
                   ],
@@ -306,7 +307,7 @@ class _PrintShackPageState extends State<PrintShackPage> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF4d2963),
+                    backgroundColor: AppColors.primary,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4),
@@ -390,7 +391,7 @@ class _PrintShackPageState extends State<PrintShackPage> {
                               style: TextStyle(
                                 fontSize: 40,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF4d2963),
+                                color: AppColors.primary,
                               ),
                             ),
                           ],
@@ -597,7 +598,7 @@ class _PrintShackPageState extends State<PrintShackPage> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF4d2963),
+                      backgroundColor: AppColors.primary,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4),

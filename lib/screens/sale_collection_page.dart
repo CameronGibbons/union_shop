@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/constants/app_colors.dart';
 import 'package:union_shop/models/product.dart';
 import 'package:union_shop/services/products_service.dart';
 import 'package:union_shop/widgets/navbar.dart';
@@ -162,7 +163,7 @@ class _SaleCollectionPageState extends State<SaleCollectionPage> {
       padding: const EdgeInsets.all(64),
       child: const Center(
         child: CircularProgressIndicator(
-          color: Color(0xFF4d2963),
+          color: AppColors.primary,
         ),
       ),
     );
@@ -186,7 +187,7 @@ class _SaleCollectionPageState extends State<SaleCollectionPage> {
             ElevatedButton(
               onPressed: _loadSaleProducts,
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF4d2963),
+                backgroundColor: AppColors.primary,
                 foregroundColor: Colors.white,
               ),
               child: const Text('Retry'),

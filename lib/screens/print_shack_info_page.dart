@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/constants/app_colors.dart';
 import 'package:union_shop/widgets/navbar.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
 
@@ -124,7 +125,7 @@ class PrintShackInfoPage extends StatelessWidget {
                                 Navigator.pushNamed(context, '/print-shack');
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF4d2963),
+                                backgroundColor: AppColors.primary,
                                 foregroundColor: Colors.white,
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 48,

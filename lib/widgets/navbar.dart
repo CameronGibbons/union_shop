@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/constants/app_colors.dart';
 import 'package:union_shop/services/auth_service.dart';
 import 'package:union_shop/services/cart_service.dart';
 
@@ -14,22 +15,7 @@ class Navbar extends StatelessWidget {
       color: Colors.white,
       child: Column(
         children: [
-          // Announcement Bar
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            color: const Color(0xFF4d2963),
-            child: const Text(
-              'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.5,
-              ),
-            ),
-          ),
+          _buildAnnouncementBar(),
           // Main Navigation
           Container(
             padding: EdgeInsets.symmetric(
@@ -42,20 +28,14 @@ class Navbar extends StatelessWidget {
                 // Logo
                 GestureDetector(
                   onTap: () => Navigator.pushNamed(context, '/'),
-                  child: Image.asset(
-                    'assets/images/logo.png',
-                    height: 50,
-                    errorBuilder: (context, error, stackTrace) {
-                      return const Text(
-                        'The UNION',
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF4d2963),
-                          fontFamily: 'Brush Script MT',
-                        ),
-                      );
-                    },
+                  child: const Text(
+                    'upsu-store',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.primary,
+                      fontFamily: 'Brush Script MT',
+                    ),
                   ),
                 ),
 
@@ -146,7 +126,7 @@ class Navbar extends StatelessWidget {
                                 child: Container(
                                   padding: const EdgeInsets.all(4),
                                   decoration: const BoxDecoration(
-                                    color: Color(0xFF4d2963),
+                                    color: AppColors.primary,
                                     shape: BoxShape.circle,
                                   ),
                                   constraints: const BoxConstraints(
@@ -205,21 +185,7 @@ class Navbar extends StatelessWidget {
               child: Column(
                 children: [
                   // Header with announcement bar
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    color: const Color(0xFF4d2963),
-                    child: const Text(
-                      'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ),
+                  _buildAnnouncementBar(),
                   // Navigation header with logo and close button
                   Container(
                     padding: const EdgeInsets.symmetric(
@@ -230,20 +196,14 @@ class Navbar extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         // Logo
-                        Image.asset(
-                          'assets/images/logo.png',
-                          height: 50,
-                          errorBuilder: (context, error, stackTrace) {
-                            return const Text(
-                              'The UNION',
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF4d2963),
-                                fontFamily: 'Brush Script MT',
-                              ),
-                            );
-                          },
+                        const Text(
+                          'upsu-store',
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primary,
+                            fontFamily: 'Brush Script MT',
+                          ),
                         ),
                         // Icons
                         Row(
@@ -366,6 +326,24 @@ class Navbar extends StatelessWidget {
       },
     );
   }
+
+  Widget _buildAnnouncementBar() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      color: AppColors.primary,
+      child: const Text(
+        'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF!',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 0.5,
+        ),
+      ),
+    );
+  }
 }
 
 class _NavLink extends StatefulWidget {
@@ -408,7 +386,7 @@ class _NavLinkState extends State<_NavLink> {
               fontWeight: FontWeight.w500,
               color: widget.isDisabled
                   ? Colors.grey
-                  : (_isHovered ? const Color(0xFF4d2963) : Colors.black87),
+                  : (_isHovered ? AppColors.primary : Colors.black87),
               decoration: _isHovered && !widget.isDisabled
                   ? TextDecoration.underline
                   : null,
@@ -488,14 +466,14 @@ class _PrintShackDropdownState extends State<_PrintShackDropdown> {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
-                  color: _isHovering ? const Color(0xFF4d2963) : Colors.black87,
+                  color: _isHovering ? AppColors.primary : Colors.black87,
                 ),
               ),
               const SizedBox(width: 4),
               Icon(
                 Icons.keyboard_arrow_down,
                 size: 20,
-                color: _isHovering ? const Color(0xFF4d2963) : Colors.black87,
+                color: _isHovering ? AppColors.primary : Colors.black87,
               ),
             ],
           ),

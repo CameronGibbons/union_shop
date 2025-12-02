@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/constants/app_colors.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
 import 'package:union_shop/widgets/navbar.dart';
 
@@ -20,7 +21,7 @@ class AboutPage extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(24),
-                    color: const Color(0xFF4d2963),
+                    color: AppColors.primary,
                     child: const Column(
                       children: [
                         Text(
@@ -138,10 +139,10 @@ class AboutPage extends StatelessWidget {
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
                             color:
-                                const Color(0xFF4d2963).withValues(alpha: 0.05),
+                                AppColors.primary.withValues(alpha: 0.05),
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
-                              color: const Color(0xFF4d2963)
+                              color: AppColors.primary
                                   .withValues(alpha: 0.2),
                             ),
                           ),
@@ -161,7 +162,7 @@ class AboutPage extends StatelessWidget {
                                 children: [
                                   Icon(
                                     Icons.email_outlined,
-                                    color: Color(0xFF4d2963),
+                                    color: AppColors.primary,
                                     size: 20,
                                   ),
                                   SizedBox(width: 12),
@@ -179,7 +180,7 @@ class AboutPage extends StatelessWidget {
                                 children: [
                                   Icon(
                                     Icons.location_on_outlined,
-                                    color: Color(0xFF4d2963),
+                                    color: AppColors.primary,
                                     size: 20,
                                   ),
                                   SizedBox(width: 12),

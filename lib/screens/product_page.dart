@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/constants/app_colors.dart';
 import 'package:union_shop/models/product.dart';
 import 'package:union_shop/models/cart_item.dart';
 import 'package:union_shop/services/products_service.dart';
@@ -168,7 +169,7 @@ class _ProductPageState extends State<ProductPage> {
       padding: const EdgeInsets.all(64),
       child: const Center(
         child: CircularProgressIndicator(
-          color: Color(0xFF4d2963),
+          color: AppColors.primary,
         ),
       ),
     );
@@ -192,7 +193,7 @@ class _ProductPageState extends State<ProductPage> {
             ElevatedButton(
               onPressed: _loadProduct,
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF4d2963),
+                backgroundColor: AppColors.primary,
                 foregroundColor: Colors.white,
               ),
               child: const Text('Retry'),
@@ -244,7 +245,7 @@ class _ProductPageState extends State<ProductPage> {
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
                 return Container(
-                  color: const Color(0xFF4d2963),
+                  color: AppColors.primary,
                   child: const Center(
                     child: Icon(
                       Icons.image,
@@ -294,7 +295,7 @@ class _ProductPageState extends State<ProductPage> {
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: _selectedImageIndex == index
-                                ? const Color(0xFF4d2963)
+                                ? AppColors.primary
                                 : Colors.grey.shade300,
                             width: _selectedImageIndex == index ? 2 : 1,
                           ),
@@ -380,7 +381,7 @@ class _ProductPageState extends State<ProductPage> {
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF4d2963),
+              color: AppColors.primary,
             ),
           ),
         ],
@@ -543,7 +544,7 @@ class _ProductPageState extends State<ProductPage> {
       child: ElevatedButton(
         onPressed: _addToCart,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF4d2963),
+          backgroundColor: AppColors.primary,
           foregroundColor: Colors.white,
           padding: const EdgeInsets.symmetric(vertical: 16),
           shape: RoundedRectangleBorder(
@@ -587,8 +588,8 @@ class _ProductPageState extends State<ProductPage> {
       child: OutlinedButton(
         onPressed: () => Navigator.pop(context),
         style: OutlinedButton.styleFrom(
-          foregroundColor: const Color(0xFF4d2963),
-          side: const BorderSide(color: Color(0xFF4d2963)),
+          foregroundColor: AppColors.primary,
+          side: const BorderSide(color: AppColors.primary),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4),

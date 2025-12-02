@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:union_shop/config/supabase_config.dart';
+import 'package:union_shop/constants/app_colors.dart';
 import 'package:union_shop/screens/product_page.dart';
 import 'package:union_shop/screens/about_page.dart';
 import 'package:union_shop/screens/collections_page.dart';
@@ -46,7 +47,7 @@ class UnionShopApp extends StatelessWidget {
       title: 'Union Shop',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
       ),
       home: const AuthWrapper(),
       initialRoute: '/',
@@ -208,8 +209,8 @@ class HomeScreen extends StatelessWidget {
                     Navigator.pushNamed(context, '/collection/essential-range');
                   },
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: const Color(0xFF4d2963),
-                    side: const BorderSide(color: Color(0xFF4d2963)),
+                    foregroundColor: AppColors.primary,
+                    side: const BorderSide(color: AppColors.primary),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24, vertical: 12),
                     shape: RoundedRectangleBorder(
@@ -291,8 +292,8 @@ class HomeScreen extends StatelessWidget {
                     Navigator.pushNamed(context, '/collection/signature-range');
                   },
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: const Color(0xFF4d2963),
-                    side: const BorderSide(color: Color(0xFF4d2963)),
+                    foregroundColor: AppColors.primary,
+                    side: const BorderSide(color: AppColors.primary),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24, vertical: 12),
                     shape: RoundedRectangleBorder(
@@ -386,8 +387,8 @@ class HomeScreen extends StatelessWidget {
                     Navigator.pushNamed(context, '/collection/portsmouth-city');
                   },
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: const Color(0xFF4d2963),
-                    side: const BorderSide(color: Color(0xFF4d2963)),
+                    foregroundColor: AppColors.primary,
+                    side: const BorderSide(color: AppColors.primary),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24, vertical: 12),
                     shape: RoundedRectangleBorder(
@@ -512,7 +513,7 @@ class HomeScreen extends StatelessWidget {
               Navigator.pushNamed(context, '/print-shack');
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF4d2963),
+              backgroundColor: AppColors.primary,
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(
                 horizontal: 24,

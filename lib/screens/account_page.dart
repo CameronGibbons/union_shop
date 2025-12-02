@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/constants/app_colors.dart';
 import 'package:union_shop/services/auth_service.dart';
 import 'package:union_shop/services/order_service.dart';
 import 'package:union_shop/models/user.dart';
@@ -112,7 +113,7 @@ class _AccountPageState extends State<AccountPage>
               controller: _tabController,
               labelColor: Colors.black,
               unselectedLabelColor: Colors.grey,
-              indicatorColor: const Color(0xFF4d2963),
+              indicatorColor: AppColors.primary,
               tabs: const [
                 Tab(text: 'Orders'),
                 Tab(text: 'Profile'),
@@ -463,7 +464,7 @@ class _AccountPageState extends State<AccountPage>
                   const SizedBox(height: 24),
                   CircleAvatar(
                     radius: 50,
-                    backgroundColor: const Color(0xFF4d2963),
+                    backgroundColor: AppColors.primary,
                     backgroundImage: _userProfile!.avatarUrl != null
                         ? NetworkImage(_userProfile!.avatarUrl!)
                         : null,
@@ -590,7 +591,7 @@ class _AccountPageState extends State<AccountPage>
       ),
       child: Row(
         children: [
-          Icon(icon, color: const Color(0xFF4d2963), size: 24),
+          Icon(icon, color: AppColors.primary, size: 24),
           const SizedBox(width: 16),
           Expanded(
             child: Column(

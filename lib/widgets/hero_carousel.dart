@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:union_shop/constants/app_colors.dart';
 
 class HeroCarousel extends StatefulWidget {
   const HeroCarousel({super.key});
@@ -20,7 +21,7 @@ class _HeroCarouselState extends State<HeroCarousel> {
       description:
           'Over 20% off our Essential Range. Come and grab yours while stock lasts!',
       buttonText: 'BROWSE COLLECTION',
-      backgroundColor: Color(0xFF4d2963),
+      backgroundColor: AppColors.primary,
       imageUrl: 'assets/images/essential_hoodie.png',
       route: '/collection/essential-range',
     ),
@@ -29,7 +30,7 @@ class _HeroCarouselState extends State<HeroCarousel> {
       description:
           'Let\'s create something uniquely you with our personalisation service — From £3 for one line of text!',
       buttonText: 'FIND OUT MORE',
-      backgroundColor: Color(0xFF4d2963),
+      backgroundColor: AppColors.primary,
       imageUrl: 'assets/images/personalization_banner.png',
       route: '/print-shack',
     ),
@@ -37,14 +38,14 @@ class _HeroCarouselState extends State<HeroCarousel> {
       title: 'Hungry?',
       description: 'We got this 🍕',
       buttonText: 'ORDER DOMINO\'S PIZZA NOW',
-      backgroundColor: Color(0xFF4d2963),
+      backgroundColor: AppColors.primary,
       imageUrl: 'assets/images/portsmouth_pizza.png',
     ),
     CarouselSlide(
       title: 'What\'s your next move...',
       description: 'Are you with us?',
       buttonText: 'FIND YOUR STUDENT ACCOMMODATION',
-      backgroundColor: Color(0xFF4d2963),
+      backgroundColor: AppColors.primary,
       imageUrl: 'assets/images/signature_hoodie.png',
     ),
   ];

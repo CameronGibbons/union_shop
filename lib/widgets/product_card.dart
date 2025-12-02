@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/constants/app_colors.dart';
 
 class ProductCard extends StatelessWidget {
   final String title;
@@ -132,7 +133,7 @@ class ProductCard extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF4d2963),
+                  color: AppColors.primary,
                 ),
               ),
             ],
