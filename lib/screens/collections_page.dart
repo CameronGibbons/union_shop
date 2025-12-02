@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/models/collection.dart';
 import 'package:union_shop/services/collections_service.dart';
-import 'package:union_shop/services/auth_service.dart';
-import 'package:union_shop/widgets/footer_widget.dart';
 import 'package:union_shop/widgets/navbar.dart';
+import 'package:union_shop/widgets/footer_widget.dart';
 
 class CollectionsPage extends StatefulWidget {
   const CollectionsPage({super.key});
@@ -56,100 +55,22 @@ class _CollectionsPageState extends State<CollectionsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          const Navbar(),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  // Header
-                  _buildHeader(context),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Navbar
+            const Navbar(),
 
-                  // Page Title
-                  _buildPageTitle(),
+            // Page Title
+            _buildPageTitle(),
 
-                  // Collections List
-                  _buildCollectionsList(),
+            // Collections List
+            _buildCollectionsList(),
 
-                  // Footer
-                  const FooterWidget(),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          // Announcement Bar
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            color: const Color(0xFF4d2963),
-            child: const Text(
-              'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.5,
-              ),
-            ),
-          ),
-          // Main Navigation
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // Logo
-                GestureDetector(
-                  onTap: () => navigateToHome(context),
-                  child: const Text(
-                    'upsu-store',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF4d2963),
-                    ),
-                  ),
-                ),
-                // Navigation Icons
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.search, size: 24),
-                      onPressed: () => Navigator.pushNamed(context, '/search'),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.person_outline, size: 24),
-                      onPressed: () {
-                        final authService = AuthService();
-                        if (authService.isSignedIn) {
-                          Navigator.pushNamed(context, '/account');
-                        } else {
-                          Navigator.pushNamed(context, '/login');
-                        }
-                      },
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.shopping_bag_outlined, size: 24),
-                      onPressed: () => Navigator.pushNamed(context, '/cart'),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
+            // Footer
+            const FooterWidget(),
+          ],
+        ),
       ),
     );
   }

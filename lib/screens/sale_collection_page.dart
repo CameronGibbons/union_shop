@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/models/product.dart';
 import 'package:union_shop/services/products_service.dart';
-import 'package:union_shop/services/auth_service.dart';
+import 'package:union_shop/widgets/navbar.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
 import 'package:union_shop/widgets/product_card.dart';
-import 'package:union_shop/widgets/navbar.dart';
 
 class SaleCollectionPage extends StatefulWidget {
   const SaleCollectionPage({super.key});
@@ -134,104 +133,25 @@ class _SaleCollectionPageState extends State<SaleCollectionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          const Navbar(),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  _buildHeader(context),
-                  if (_isLoading)
-                    _buildLoadingState()
-                  else if (_errorMessage.isNotEmpty)
-                    _buildErrorState()
-                  else ...[
-                    _buildSaleHeader(),
-                    _buildPromotionalMessage(),
-                    _buildFilterAndSort(),
-                    _buildProductCount(),
-                    _buildProductGrid(),
-                    _buildPagination(),
-                  ],
-                  const FooterWidget(),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            color: const Color(0xFF4d2963),
-            child: const Text(
-              'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.5,
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: () => navigateToHome(context),
-                  child: const Text(
-                    'The UNION',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF4d2963),
-                      fontFamily: 'Cursive',
-                    ),
-                  ),
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.search, size: 24),
-                      onPressed: () => Navigator.pushNamed(context, '/search'),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.person_outline, size: 24),
-                      onPressed: () {
-                        final authService = AuthService();
-                        if (authService.isSignedIn) {
-                          Navigator.pushNamed(context, '/account');
-                        } else {
-                          Navigator.pushNamed(context, '/login');
-                        }
-                      },
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.shopping_bag_outlined, size: 24),
-                      onPressed: () => Navigator.pushNamed(context, '/cart'),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.menu, size: 24),
-                      onPressed: placeholderCallbackForButtons,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const Navbar(),
+            if (_isLoading)
+              _buildLoadingState()
+            else if (_errorMessage.isNotEmpty)
+              _buildErrorState()
+            else ...[
+              _buildSaleHeader(),
+              _buildPromotionalMessage(),
+              _buildFilterAndSort(),
+              _buildProductCount(),
+              _buildProductGrid(),
+              _buildPagination(),
+            ],
+            const FooterWidget(),
+          ],
+        ),
       ),
     );
   }
