@@ -4,6 +4,7 @@ import 'package:union_shop/services/cart_service.dart';
 import 'package:union_shop/services/auth_service.dart';
 import 'package:union_shop/services/order_service.dart';
 import 'package:union_shop/utils/snackbar_utils.dart';
+import 'package:union_shop/widgets/navbar.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -147,37 +148,29 @@ class _CartPageState extends State<CartPage> {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F3),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: const Text(
-          'Your cart',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: ListenableBuilder(
-        listenable: _cartService,
-        builder: (context, _) {
-          if (_cartService.isEmpty) {
-            return _buildEmptyCart();
-          }
+      body: Column(
+        children: [
+          const Navbar(),
+          Expanded(
+            child: ListenableBuilder(
+              listenable: _cartService,
+              builder: (context, _) {
+                if (_cartService.isEmpty) {
+                  return _buildEmptyCart();
+                }
 
-          return SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.all(isDesktop ? 32.0 : 16.0),
-              child: isDesktop ? _buildDesktopLayout() : _buildMobileLayout(),
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.all(isDesktop ? 32.0 : 16.0),
+                    child: isDesktop
+                        ? _buildDesktopLayout()
+                        : _buildMobileLayout(),
+                  ),
+                );
+              },
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
@@ -662,6 +655,19 @@ class _CartPageState extends State<CartPage> {
                             ),
                           ),
                         ],
+                        if (item.productId == 'personalisation' &&
+                            item.color != null &&
+                            item.color!.isNotEmpty) ...[
+                          const SizedBox(height: 4),
+                          Text(
+                            'Personalisation Line 1: ${item.color}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black87,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        ],
                         const SizedBox(height: 8),
                         TextButton(
                           onPressed: () => _removeItem(item),
@@ -764,6 +770,19 @@ class _CartPageState extends State<CartPage> {
                         style: const TextStyle(
                           fontSize: 14,
                           color: Colors.grey,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ],
+                    if (item.productId == 'personalisation' &&
+                        item.color != null &&
+                        item.color!.isNotEmpty) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        'Personalisation Line 1: ${item.color}',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black87,
                           fontStyle: FontStyle.italic,
                         ),
                       ),
