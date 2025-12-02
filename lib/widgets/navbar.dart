@@ -28,14 +28,20 @@ class Navbar extends StatelessWidget {
                 // Logo
                 GestureDetector(
                   onTap: () => Navigator.pushNamed(context, '/'),
-                  child: const Text(
-                    'upsu-store',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.primary,
-                      fontFamily: 'Brush Script MT',
-                    ),
+                  child: Image.asset(
+                    'assets/images/logo.png',
+                    height: 50,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Text(
+                        'upsu-store',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primary,
+                          fontFamily: 'Brush Script MT',
+                        ),
+                      );
+                    },
                   ),
                 ),
 
