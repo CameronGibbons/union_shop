@@ -523,7 +523,7 @@ class _PrintShackDropdownState extends State<_PrintShackDropdown> {
             child: const Text('About'),
             onTap: () {
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                Navigator.pushNamed(context, '/about');
+                Navigator.pushNamed(context, '/print-shack-info');
               });
             },
           ),
