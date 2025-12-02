@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
+import 'package:union_shop/widgets/navbar.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -7,24 +8,16 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          'About Us',
-          style: TextStyle(color: Colors.black),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Hero Section
-            Container(
+      body: Column(
+        children: [
+          const Navbar(),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Hero Section
+                  Container(
               width: double.infinity,
               padding: const EdgeInsets.all(24),
               color: const Color(0xFF4d2963),
@@ -207,8 +200,11 @@ class AboutPage extends StatelessWidget {
 
             // Footer
             const FooterWidget(),
-          ],
-        ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

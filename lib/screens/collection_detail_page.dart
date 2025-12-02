@@ -6,6 +6,7 @@ import 'package:union_shop/services/products_service.dart';
 import 'package:union_shop/services/auth_service.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
 import 'package:union_shop/widgets/product_card.dart';
+import 'package:union_shop/widgets/navbar.dart';
 
 class CollectionDetailPage extends StatefulWidget {
   final String collectionId;
@@ -145,24 +146,31 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _buildHeader(context),
-            if (_isLoading)
-              _buildLoadingState()
-            else if (_errorMessage.isNotEmpty)
-              _buildErrorState()
-            else ...[
-              _buildCollectionHeader(),
-              _buildFilterAndSort(),
-              _buildProductCount(),
-              _buildProductGrid(),
-              _buildPagination(),
-            ],
-            const FooterWidget(),
-          ],
-        ),
+      body: Column(
+        children: [
+          const Navbar(),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _buildHeader(context),
+                  if (_isLoading)
+                    _buildLoadingState()
+                  else if (_errorMessage.isNotEmpty)
+                    _buildErrorState()
+                  else ...[
+                    _buildCollectionHeader(),
+                    _buildFilterAndSort(),
+                    _buildProductCount(),
+                    _buildProductGrid(),
+                    _buildPagination(),
+                  ],
+                  const FooterWidget(),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

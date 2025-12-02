@@ -4,6 +4,7 @@ import 'package:union_shop/services/products_service.dart';
 import 'package:union_shop/services/auth_service.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
 import 'package:union_shop/widgets/product_card.dart';
+import 'package:union_shop/widgets/navbar.dart';
 
 class SaleCollectionPage extends StatefulWidget {
   const SaleCollectionPage({super.key});
@@ -133,25 +134,32 @@ class _SaleCollectionPageState extends State<SaleCollectionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _buildHeader(context),
-            if (_isLoading)
-              _buildLoadingState()
-            else if (_errorMessage.isNotEmpty)
-              _buildErrorState()
-            else ...[
-              _buildSaleHeader(),
-              _buildPromotionalMessage(),
-              _buildFilterAndSort(),
-              _buildProductCount(),
-              _buildProductGrid(),
-              _buildPagination(),
-            ],
-            const FooterWidget(),
-          ],
-        ),
+      body: Column(
+        children: [
+          const Navbar(),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _buildHeader(context),
+                  if (_isLoading)
+                    _buildLoadingState()
+                  else if (_errorMessage.isNotEmpty)
+                    _buildErrorState()
+                  else ...[
+                    _buildSaleHeader(),
+                    _buildPromotionalMessage(),
+                    _buildFilterAndSort(),
+                    _buildProductCount(),
+                    _buildProductGrid(),
+                    _buildPagination(),
+                  ],
+                  const FooterWidget(),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -67,26 +67,40 @@ class Navbar extends StatelessWidget {
                       children: [
                         _NavLink(
                           label: 'Home',
-                          onTap: () => Navigator.pushNamed(context, '/'),
+                          onTap: ModalRoute.of(context)?.settings.name == '/'
+                              ? null
+                              : () => Navigator.pushNamed(context, '/'),
+                          isDisabled:
+                              ModalRoute.of(context)?.settings.name == '/',
                         ),
                         _NavLink(
                           label: 'Shop',
-                          onTap: () =>
-                              Navigator.pushNamed(context, '/collections'),
+                          onTap: ModalRoute.of(context)?.settings.name ==
+                                  '/collections'
+                              ? null
+                              : () =>
+                                  Navigator.pushNamed(context, '/collections'),
+                          isDisabled: ModalRoute.of(context)?.settings.name ==
+                              '/collections',
                         ),
-                        _NavLink(
-                          label: 'The Print Shack',
-                          onTap: () =>
-                              Navigator.pushNamed(context, '/print-shack'),
-                        ),
+                        const _PrintShackDropdown(),
                         _NavLink(
                           label: 'SALE!',
-                          onTap: () => Navigator.pushNamed(context, '/sale'),
-                          isHighlighted: true,
+                          onTap:
+                              ModalRoute.of(context)?.settings.name == '/sale'
+                                  ? null
+                                  : () => Navigator.pushNamed(context, '/sale'),
+                          isDisabled:
+                              ModalRoute.of(context)?.settings.name == '/sale',
                         ),
                         _NavLink(
                           label: 'About',
-                          onTap: () => Navigator.pushNamed(context, '/about'),
+                          onTap: ModalRoute.of(context)?.settings.name ==
+                                  '/about'
+                              ? null
+                              : () => Navigator.pushNamed(context, '/about'),
+                          isDisabled:
+                              ModalRoute.of(context)?.settings.name == '/about',
                         ),
                       ],
                     ),
@@ -373,13 +387,13 @@ class Navbar extends StatelessWidget {
 
 class _NavLink extends StatefulWidget {
   final String label;
-  final VoidCallback onTap;
-  final bool isHighlighted;
+  final VoidCallback? onTap;
+  final bool isDisabled;
 
   const _NavLink({
     required this.label,
     required this.onTap,
-    this.isHighlighted = false,
+    this.isDisabled = false,
   });
 
   @override
@@ -394,21 +408,27 @@ class _NavLinkState extends State<_NavLink> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: MouseRegion(
-        onEnter: (_) => setState(() => _isHovered = true),
-        onExit: (_) => setState(() => _isHovered = false),
-        cursor: SystemMouseCursors.click,
+        onEnter:
+            widget.isDisabled ? null : (_) => setState(() => _isHovered = true),
+        onExit: widget.isDisabled
+            ? null
+            : (_) => setState(() => _isHovered = false),
+        cursor: widget.isDisabled
+            ? SystemMouseCursors.basic
+            : SystemMouseCursors.click,
         child: GestureDetector(
-          onTap: widget.onTap,
+          onTap: widget.isDisabled ? null : widget.onTap,
           child: Text(
             widget.label,
             style: TextStyle(
               fontSize: 14,
-              fontWeight:
-                  widget.isHighlighted ? FontWeight.w600 : FontWeight.w500,
-              color: widget.isHighlighted
-                  ? Colors.red
+              fontWeight: FontWeight.w500,
+              color: widget.isDisabled
+                  ? Colors.grey
                   : (_isHovered ? const Color(0xFF4d2963) : Colors.black87),
-              decoration: _isHovered ? TextDecoration.underline : null,
+              decoration: _isHovered && !widget.isDisabled
+                  ? TextDecoration.underline
+                  : null,
             ),
           ),
         ),
@@ -454,6 +474,69 @@ class _MobileMenuItem extends StatelessWidget {
               ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _PrintShackDropdown extends StatefulWidget {
+  const _PrintShackDropdown();
+
+  @override
+  State<_PrintShackDropdown> createState() => _PrintShackDropdownState();
+}
+
+class _PrintShackDropdownState extends State<_PrintShackDropdown> {
+  bool _isHovering = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovering = true),
+      onExit: (_) => setState(() => _isHovering = false),
+      child: PopupMenuButton<String>(
+        offset: const Offset(0, 40),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            children: [
+              Text(
+                'The Print Shack',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: _isHovering ? const Color(0xFF4d2963) : Colors.black87,
+                ),
+              ),
+              const SizedBox(width: 4),
+              Icon(
+                Icons.keyboard_arrow_down,
+                size: 20,
+                color: _isHovering ? const Color(0xFF4d2963) : Colors.black87,
+              ),
+            ],
+          ),
+        ),
+        itemBuilder: (context) => [
+          PopupMenuItem(
+            value: 'about',
+            child: const Text('About'),
+            onTap: () {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.pushNamed(context, '/about');
+              });
+            },
+          ),
+          PopupMenuItem(
+            value: 'personalisation',
+            child: const Text('Personalisation'),
+            onTap: () {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.pushNamed(context, '/print-shack');
+              });
+            },
+          ),
+        ],
       ),
     );
   }

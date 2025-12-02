@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/widgets/navbar.dart';
 import 'package:union_shop/models/product.dart';
 import 'package:union_shop/models/cart_item.dart';
 import 'package:union_shop/services/products_service.dart';
@@ -143,21 +144,28 @@ class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _buildHeader(context),
-            if (_isLoading)
-              _buildLoadingState()
-            else if (_errorMessage.isNotEmpty)
-              _buildErrorState()
-            else ...[
-              _buildProductContent(),
-              _buildBackButton(),
-            ],
-            const FooterWidget(),
-          ],
-        ),
+      body: Column(
+        children: [
+          const Navbar(),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _buildHeader(context),
+                  if (_isLoading)
+                    _buildLoadingState()
+                  else if (_errorMessage.isNotEmpty)
+                    _buildErrorState()
+                  else ...[
+                    _buildProductContent(),
+                    _buildBackButton(),
+                  ],
+                  const FooterWidget(),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

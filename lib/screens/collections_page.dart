@@ -3,6 +3,7 @@ import 'package:union_shop/models/collection.dart';
 import 'package:union_shop/services/collections_service.dart';
 import 'package:union_shop/services/auth_service.dart';
 import 'package:union_shop/widgets/footer_widget.dart';
+import 'package:union_shop/widgets/navbar.dart';
 
 class CollectionsPage extends StatefulWidget {
   const CollectionsPage({super.key});
@@ -55,22 +56,29 @@ class _CollectionsPageState extends State<CollectionsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Header
-            _buildHeader(context),
+      body: Column(
+        children: [
+          const Navbar(),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  // Header
+                  _buildHeader(context),
 
-            // Page Title
-            _buildPageTitle(),
+                  // Page Title
+                  _buildPageTitle(),
 
-            // Collections List
-            _buildCollectionsList(),
+                  // Collections List
+                  _buildCollectionsList(),
 
-            // Footer
-            const FooterWidget(),
-          ],
-        ),
+                  // Footer
+                  const FooterWidget(),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
