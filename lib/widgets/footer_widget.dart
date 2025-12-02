@@ -149,8 +149,10 @@ class FooterWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: GestureDetector(
                   onTap: () {
-                    // Navigate for About Us, Collections, Sale, and Search links
-                    if (link.route == '/about') {
+                    // Navigate for all links
+                    if (link.route == '/') {
+                      Navigator.pushNamed(context, '/');
+                    } else if (link.route == '/about') {
                       Navigator.pushNamed(context, '/about');
                     } else if (link.route == '/collections') {
                       Navigator.pushNamed(context, '/collections');
