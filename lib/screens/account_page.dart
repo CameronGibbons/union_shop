@@ -465,19 +465,23 @@ class _AccountPageState extends State<AccountPage>
                   CircleAvatar(
                     radius: 50,
                     backgroundColor: AppColors.primary,
-                    backgroundImage: _userProfile!.avatarUrl != null
+                    foregroundImage: _userProfile!.avatarUrl != null
                         ? NetworkImage(_userProfile!.avatarUrl!)
                         : null,
-                    child: _userProfile!.avatarUrl == null
-                        ? Text(
-                            _userProfile!.initials,
-                            style: const TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          )
+                    onForegroundImageError: _userProfile!.avatarUrl != null
+                        ? (exception, stackTrace) {
+                            // Silently handle image load errors (like 429 rate limits)
+                            debugPrint('Failed to load profile image: $exception');
+                          }
                         : null,
+                    child: Text(
+                      _userProfile!.initials,
+                      style: const TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 16),
                   Text(

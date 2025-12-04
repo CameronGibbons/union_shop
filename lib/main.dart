@@ -617,23 +617,20 @@ class _AuthWrapperState extends State<AuthWrapper> {
     final hasCode = uri.queryParameters.containsKey('code');
 
     if (hasCode) {
-      // Clean up the URL by removing query parameters
-      final cleanUrl = uri.replace(queryParameters: {}).toString();
-      web.window.history.replaceState(null, '', cleanUrl);
-
-      // Wait a bit for Supabase to process the OAuth callback
-      await Future.delayed(const Duration(milliseconds: 500));
+      // Wait for Supabase to process the OAuth callback
+      await Future.delayed(const Duration(milliseconds: 800));
 
       // Check if user is now signed in
       try {
         final authService = AuthService();
         if (authService.isSignedIn && mounted) {
-          // Redirect to account page after successful OAuth login
+          // Use Navigator to clean the URL - safer than direct history manipulation
           Navigator.of(context).pushReplacementNamed('/account');
           return;
         }
       } catch (e) {
         // Continue to show home screen
+        debugPrint('Auth check error: $e');
       }
     }
 
